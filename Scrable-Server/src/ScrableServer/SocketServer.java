@@ -1,4 +1,4 @@
-package ScrableServer.SocketServer;
+package ScrableServer;
 
 import ScrableServer.Game.Game;
 import ScrableServer.Game.Games;
@@ -82,6 +82,10 @@ public class SocketServer {
                                 if (p != null) {
                                     p.lastPing = System.currentTimeMillis();
                                 }
+                                if (game.shouldStart() && game.startTime == -1){
+                                    game.startTime = System.currentTimeMillis() + 15000;
+                                    game.setGameState(Game.State.IN_PROGRESS);
+                                }
                                 respondToClient(game.toString());
                             }
                             break;
@@ -91,6 +95,10 @@ public class SocketServer {
                             if (game == null) {
                                 respondToClient("404 not found");
                             } else {
+                                if (game.hasStarted()){
+                                    respondToClient("Game already started");
+                                    return;
+                                }
                                 if (game.addPlayer(msgParts[2])) {
                                 respondToClient(gameId);
                                 }else {

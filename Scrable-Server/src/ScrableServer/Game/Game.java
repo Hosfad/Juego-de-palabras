@@ -14,10 +14,23 @@ public class Game {
 
     public List<Player> players;
 
+    public long startTime = -1;
+
+
+
+
+
     public Game(long id) {
         this.id = id;
         this.gameState = State.WAITING_FOR_PLAYERS;
         this.players = new ArrayList<>();
+    }
+
+    public boolean hasStarted(){
+        return startTime != -1 && System.currentTimeMillis() > startTime;
+    }
+    public boolean shouldStart(){
+        return players.size() >= 2 && players.stream().allMatch(i -> i.isReady);
     }
 
     public void setGameState(State gameState) {

@@ -86,6 +86,24 @@ public class LobbyWindow extends DreamFrame {
                     String ready = player.isReady ? "(Ready)" : "";
                     playerList.add("Player : " + player.name + " " + ready);
                 }
+
+                if (g.gameState == Game.State.IN_PROGRESS){
+                    JOptionPane.showInputDialog("Game starting in " +(int) ((g.startTime - System.currentTimeMillis()) / 1000)  + " seconds");
+                    // Start new game
+                    if (System.currentTimeMillis() > g.startTime){
+
+
+
+
+                        this.setVisible(false);
+                        this.dispose();
+                        GameWindow gameWindow = new GameWindow(g , currentUser);
+                        gameWindow.setVisible(true);
+                        pollingThread.interrupt();
+                        pollingThread.stop();
+                    }
+                }
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -94,7 +112,6 @@ public class LobbyWindow extends DreamFrame {
             }
 
         });
-        pollingThread.start();
 
         DreamScrollPane dsp = new DreamScrollPane(playerList);
         content.add(new DreamLabel(""));
@@ -102,6 +119,7 @@ public class LobbyWindow extends DreamFrame {
         content.add(new DreamLabel(""));
         content.add(new DreamLabel(""));
         body.add(dsp);
+        pollingThread.start();
 
     }
 

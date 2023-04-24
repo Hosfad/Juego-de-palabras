@@ -57,12 +57,13 @@ public class MainWindow extends DreamFrame {
 
 
 
+
         DreamButton joinGame = new DreamButton("Join game");
         joinGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JTextField gameId = new JTextField();
-                JTextField username = new JPasswordField();
+                JTextField username = new JTextField();
                 Object[] message = {
                         "Game id :", gameId,
                         "Username :", username
@@ -73,15 +74,20 @@ public class MainWindow extends DreamFrame {
                     return;
                 }
                 String res =  SocketClient.sendMessage("join-game," + gameId.getText() + "," + username.getText());
-                if (!res.equals("Name taken")){
+                if (res == null || res.equals("")) {
+                    JOptionPane.showMessageDialog(getParent() , "Error: " + res);
+                }
+                if (res.equals("Game already started")){
+                    JOptionPane.showMessageDialog(getParent() , "Game " + gameId.getText() + " already started"  );
+                } else if (res.equals("Name taken")){
+                    JOptionPane.showMessageDialog(getParent() , "Name " + username.getText() + " is already taken"  );
+                }else {
                     Game g = new Game(Long.parseLong(res));
                     g.addPlayer(username.getText());
                     LobbyWindow lobbyWindow = new LobbyWindow(g);
                     setVisible(false);
                     lobbyWindow.currentUser = username.getText();
                     lobbyWindow.setVisible(true);
-                }else {
-                    JOptionPane.showMessageDialog(getParent() , "Name " + username.getText() + " is already taken"  );
                 }
 
             }
