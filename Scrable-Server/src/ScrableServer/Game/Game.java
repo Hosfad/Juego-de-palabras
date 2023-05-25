@@ -75,11 +75,10 @@ public class Game {
 
     public class Player {
         public String name;
-        public int score;
+        public int score = 0;
         public boolean isReady = false;
         @Expose(serialize = false,deserialize = false)
         public long lastPing;
-
         public Player(String name) {
             this.name = name;
             this.score = 0;

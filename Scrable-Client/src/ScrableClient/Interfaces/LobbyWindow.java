@@ -8,6 +8,7 @@ import ScrableServer.Game.Game;
 import ScrableServer.Game.Games;
 import com.google.gson.Gson;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -26,6 +27,7 @@ public class LobbyWindow extends DreamFrame {
     Game currentGame;
     public String currentUser;
     Thread pollingThread;
+    DreamLabel connectedUsersNum = new DreamLabel("0");
 
     public LobbyWindow(Game game) {
         super("Sala de espera",ImageUtils.resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"),20,20));
@@ -49,8 +51,14 @@ public class LobbyWindow extends DreamFrame {
         content.add(new DreamLabel("Status: ") );
         content.add(new DreamLabel( currentGame.gameState.name()));
         content.add(new DreamLabel("Connected users: ") );
-        content.add(new DreamLabel( currentGame.players.size()+ ""));
+        connectedUsersNum.setText(currentGame.players.size() + "");
+        content.add(connectedUsersNum);
         DreamButton readyButton = new DreamButton("Ready");
+        try {
+            readyButton.setIcon(new ImageIcon(ImageUtils.resize(ImageIO.read(SocketClient.class.getResource("Resources/start.png")) ,20,20)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         readyButton.addActionListener(e->{
             String res = SocketClient.sendMessage("player-ready," + game.id + "," + currentUser);
             if(res.equals("ok")){
@@ -58,8 +66,13 @@ public class LobbyWindow extends DreamFrame {
             }
         });
         content.add(readyButton);
-
         DreamButton leaveGame = new DreamButton("Leave Game");
+        try {
+            leaveGame.setIcon(new ImageIcon(ImageUtils.resize( ImageIO.read(SocketClient.class.getResource("Resources/stop.png")) ,20,20 )));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         leaveGame.addActionListener(e->{
             String res = SocketClient.sendMessage("leave-game," + game.id + "," + currentUser);
                 pollingThread.stop();
@@ -86,6 +99,7 @@ public class LobbyWindow extends DreamFrame {
                     String ready = player.isReady ? "(Ready)" : "";
                     playerList.add("Player : " + player.name + " " + ready);
                 }
+                connectedUsersNum.setText(g.players.size() + "");
 
                 if (g.gameState == Game.State.IN_PROGRESS){
                     JOptionPane.showInputDialog("Game starting in " +(int) ((g.startTime - System.currentTimeMillis()) / 1000)  + " seconds");

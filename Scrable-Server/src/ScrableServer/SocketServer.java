@@ -29,12 +29,14 @@ public class SocketServer {
     public SocketServer(int port) throws IOException {
         this.server = new ServerSocket(port);
         while (true) {
+
             try {
-                while (true) {
-                    System.out.println("Server started, waiting for client...");
-                    socket = server.accept();
-                    handleMessage();
-                }
+
+
+
+                System.out.println("Server started, waiting for client...");
+                socket = server.accept();
+                handleMessage();
             } catch (IOException i) {
                 System.out.println(i);
                 try {
@@ -44,6 +46,7 @@ public class SocketServer {
                 }
             }
         }
+
     }
 
     /**
@@ -78,11 +81,11 @@ public class SocketServer {
                                 respondToClient("404 not found");
                             } else {
                                 System.out.println(game.toString());
-                                Game.Player p = game.getPlayer(p1-> p1.name.equals(msgParts[2]));
+                                Game.Player p = game.getPlayer(p1 -> p1.name.equals(msgParts[2]));
                                 if (p != null) {
                                     p.lastPing = System.currentTimeMillis();
                                 }
-                                if (game.shouldStart() && game.startTime == -1){
+                                if (game.shouldStart() && game.startTime == -1) {
                                     game.startTime = System.currentTimeMillis() + 15000;
                                     game.setGameState(Game.State.IN_PROGRESS);
                                 }
@@ -95,13 +98,13 @@ public class SocketServer {
                             if (game == null) {
                                 respondToClient("404 not found");
                             } else {
-                                if (game.hasStarted()){
+                                if (game.hasStarted()) {
                                     respondToClient("Game already started");
                                     return;
                                 }
                                 if (game.addPlayer(msgParts[2])) {
-                                respondToClient(gameId);
-                                }else {
+                                    respondToClient(gameId);
+                                } else {
                                     respondToClient("Name taken");
                                 }
                             }
@@ -114,12 +117,12 @@ public class SocketServer {
                                 System.out.println("404 not found");
                                 respondToClient("404 not found");
                             } else {
-                                if (msgParts.length > 2){
+                                if (msgParts.length > 2) {
                                     game.removePlayer(msgParts[2]);
                                     if (game.players.size() == 0) {
                                         Games.removeGame(g -> g.id == Long.parseLong(gameId));
                                     }
-                                }else {
+                                } else {
                                     Games.removeGame(g -> g.id == Long.parseLong(gameId));
                                     System.out.println("Game ended because all players left");
                                 }

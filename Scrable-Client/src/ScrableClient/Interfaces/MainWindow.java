@@ -18,6 +18,8 @@ import java.io.IOException;
 public class MainWindow extends DreamFrame {
 
     private DreamPanel body, content;
+
+
     public MainWindow() {
         super("Juego de palabras",ImageUtils.resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"),20,20));
         body = new DreamPanel();
