@@ -32,8 +32,6 @@ public class SocketServer {
 
             try {
 
-
-
                 System.out.println("Server started, waiting for client...");
                 socket = server.accept();
                 handleMessage();
@@ -54,7 +52,8 @@ public class SocketServer {
      *
      * @param message The message to send
      * @throws IOException
-     * @see SocketServer#handleMessage() must be used before socket is closed or will throw an error
+     * @see SocketServer#handleMessage() must be used before socket is closed or
+     *      will throw an error
      */
     private void respondToClient(String message) throws IOException {
         DataOutputStream dos = new DataOutputStream(this.socket.getOutputStream());
