@@ -91,6 +91,13 @@ public class LobbyWindow extends DreamFrame {
         pollingThread = new Thread(()->{
             while (true){
                String res= SocketClient.sendMessage("get-game-info," + game.id + "," + currentUser  );
+               if (res.equals("null")){
+                   pollingThread.stop();
+                   pollingThread.interrupt();
+                   this.setVisible(false);
+                   this.dispose();
+                   new MainWindow().setVisible(true);
+               }
                 System.out.println(res);
                 Game g = gson.fromJson(res, Game.class);
                 this.currentGame = g;
@@ -134,6 +141,18 @@ public class LobbyWindow extends DreamFrame {
         content.add(new DreamLabel(""));
         body.add(dsp);
         pollingThread.start();
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                String res = SocketClient.sendMessage("leave-game," + game.id + "," + currentUser);
+                pollingThread.stop();
+                pollingThread.interrupt();
+                setVisible(false);
+                dispose();
+                new MainWindow().setVisible(true);
+            }
+        });
 
     }
 

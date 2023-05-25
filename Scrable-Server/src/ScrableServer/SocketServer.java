@@ -85,9 +85,15 @@ public class SocketServer {
                                 if (p != null) {
                                     p.lastPing = System.currentTimeMillis();
                                 }
+                                // All players ready should start
                                 if (game.shouldStart() && game.startTime == -1) {
                                     game.startTime = System.currentTimeMillis() + 15000;
                                     game.setGameState(Game.State.IN_PROGRESS);
+                                }
+                                // Game started but a player left
+                                if (game.hasStarted() && !game.shouldStart()) {
+                                    respondToClient("null");
+                                    return;
                                 }
                                 respondToClient(game.toString());
                             }

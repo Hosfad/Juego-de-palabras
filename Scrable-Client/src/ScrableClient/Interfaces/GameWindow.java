@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -50,11 +52,30 @@ public class GameWindow extends DreamFrame {
             while (true){
                 try {
                     String res= SocketClient.sendMessage("get-game-info," + game.id + "," + currentUserId  );
-
+                    if (res.equals("null")){
+                        pollingThread.stop();
+                        pollingThread.interrupt();
+                        this.setVisible(false);
+                        this.dispose();
+                        new MainWindow().setVisible(true);
+                    }
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                String res = SocketClient.sendMessage("leave-game," + game.id + "," + currentUserId);
+                pollingThread.stop();
+                pollingThread.interrupt();
+                setVisible(false);
+                dispose();
+                new MainWindow().setVisible(true);
             }
         });
 

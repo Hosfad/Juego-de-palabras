@@ -16,6 +16,7 @@ public class Game {
 
     public long startTime = -1;
 
+    public String currentlyPlaying ;
 
 
 
@@ -70,6 +71,9 @@ public class Game {
             }
         }
         return null;
+    }
+    public Player getCurrenRoundPlayer(){
+        return getPlayer(i -> i.name.equals(currentlyPlaying));
     }
 
 
