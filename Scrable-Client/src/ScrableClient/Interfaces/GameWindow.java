@@ -1,29 +1,33 @@
 package ScrableClient.Interfaces;
 
-import ScrableClient.DreamUI.UIColours;
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
+import ScrableClient.GameListener.GameListener;
+import ScrableClient.GameListener.GameTick;
+import ScrableClient.MainClass;
 import ScrableClient.SocketClient;
 import ScrableServer.Game.Game;
+import ScrableServer.ServerResponse;
 import com.google.gson.Gson;
 
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-public class GameWindow extends DreamFrame {
+public class GameWindow extends DreamFrame implements GameListener {
 
     private DreamPanel body, content;
     Image icon = ImageUtils.resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"),20,20);
     Gson gson = new Gson();
     Game currentGame;
     public String currentUserId;
-    Thread pollingThread;
+    JTable usersTable = new JTable();
 
-    public GameWindow(Game game ,String currentUserId ) {
+    public GameWindow(Game game , String currentUserId ) {
         super("Juego de palabras",ImageUtils.resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"),20,20));
         body = new DreamPanel();
         this.currentGame = game;
@@ -33,57 +37,61 @@ public class GameWindow extends DreamFrame {
         add(body, BorderLayout.CENTER);
         body.setBorder(new EmptyBorder(7,8,7,8));
 
-
         body.add(content = new DreamPanel(), BorderLayout.NORTH);
         GridLayout grid = new GridLayout(0,1);
         grid.setVgap(15);
         content.setLayout(grid);
 
         content.add(new DreamLabel("Game started"));
-        List playersList = new List();
-        playersList.setBackground(UIColours.BODY_COLOUR);
-        playersList.setForeground(Color.white);
-        for (Game.Player player : game.players) {
-            playersList.add(player.name);
+        usersTable.setModel(new DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                        "User", "Score"
+                }));
+        JScrollPane scrollPane = new JScrollPane(usersTable);
+        content.add(scrollPane);
+
+    }
+
+
+
+    @Override
+    public void onGameTick(GameTick event) {
+
+        if (event.status == ServerResponse.GAME_NOT_FOUND){
+            JOptionPane.showMessageDialog(null, "Game not found");
+            this.dispose();
+            MainClass.mainWindow.setVisible(true);
+            return;
         }
-        content.add(playersList);
+        if (event.status == ServerResponse.GAME_ENDED){
+            JOptionPane.showMessageDialog(null, "Game ended");
+            this.dispose();
+            MainClass.mainWindow.setVisible(true);
+            return;
+        }
 
-        pollingThread = new Thread(()->{
-            while (true){
-                try {
-                    String res= SocketClient.sendMessage("get-game-info," + game.id + "," + currentUserId  );
-                    if (res.equals("null")){
-                        pollingThread.stop();
-                        pollingThread.interrupt();
-                        this.setVisible(false);
-                        this.dispose();
-                        new MainWindow().setVisible(true);
-                    }
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                String res = SocketClient.sendMessage("leave-game," + game.id + "," + currentUserId);
-                pollingThread.stop();
-                pollingThread.interrupt();
-                setVisible(false);
-                dispose();
-                new MainWindow().setVisible(true);
-            }
-        });
-
-        pollingThread.start();
     }
 
-
-    public static void main(String[] args) throws IOException {
+    @Override
+    public void onExit() {
+        String res = SocketClient.sendMessage("leave-game," + getGameId() + "," + getUserId());
+        this.setVisible(false);
+        this.dispose();
+        MainClass.mainWindow.setVisible(true);
+        MainClass.removeListener(MainClass.getInstance(this.getClass()));
     }
+    @Override
+    public String getGameId() {
+        return currentGame.id +"";
+    }
+
+    @Override
+    public String getUserId() {
+        return currentUserId;
+    }
+
 
 }

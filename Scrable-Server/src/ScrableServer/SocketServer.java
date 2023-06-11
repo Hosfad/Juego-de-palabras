@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SocketServer {
     private Socket socket = null;
@@ -18,7 +21,9 @@ public class SocketServer {
 
     private DataInputStream in = null;
 
+
     public static void main(String[] args) {
+
         try {
             SocketServer server = new SocketServer(5000);
         } catch (IOException e) {
@@ -28,10 +33,27 @@ public class SocketServer {
 
     public SocketServer(int port) throws IOException {
         this.server = new ServerSocket(port);
+
+        Thread gameManagerThread = new Thread(()->{
+
+            while (true){
+                List<Game> allGames = Games.all();
+                 // Handle all game logic serverside
+
+
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
         while (true) {
 
             try {
-
+                System.out.println("Current games size: " + Games.all().size());
                 System.out.println("Server started, waiting for client...");
                 socket = server.accept();
                 handleMessage();
@@ -47,6 +69,8 @@ public class SocketServer {
 
     }
 
+
+
     /**
      * Send a response to client
      *
@@ -55,10 +79,20 @@ public class SocketServer {
      * @see SocketServer#handleMessage() must be used before socket is closed or
      *      will throw an error
      */
-    private void respondToClient(String message) throws IOException {
-        DataOutputStream dos = new DataOutputStream(this.socket.getOutputStream());
-        dos.writeUTF(message);
+    private void respondToClient(ServerResponse status,String message) {
+        DataOutputStream dos = null;
+        try {
+            dos = new DataOutputStream(this.socket.getOutputStream());
+            dos.writeUTF(status + ":" + message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    private void respondToClient(ServerResponse res) {
+       respondToClient(res,"");
+    }
+
 
     private void handleMessage() {
         (new Thread() {
@@ -77,7 +111,7 @@ public class SocketServer {
                             gameId = msgParts[1];
                             game = Games.getGame(g -> g.id == Long.parseLong(gameId));
                             if (game == null) {
-                                respondToClient("404 not found");
+                                respondToClient(ServerResponse.GAME_NOT_FOUND);
                             } else {
                                 System.out.println(game.toString());
                                 Game.Player p = game.getPlayer(p1 -> p1.name.equals(msgParts[2]));
@@ -91,26 +125,27 @@ public class SocketServer {
                                 }
                                 // Game started but a player left
                                 if (game.hasStarted() && !game.shouldStart()) {
-                                    respondToClient("null");
+                                    respondToClient(ServerResponse.GAME_NOT_FOUND);
                                     return;
                                 }
-                                respondToClient(game.toString());
+
+                                respondToClient(ServerResponse.OK ,game.toString());
                             }
                             break;
                         case "join-game":
                             gameId = msgParts[1];
                             game = Games.getGame(g -> g.id == Long.parseLong(gameId));
                             if (game == null) {
-                                respondToClient("404 not found");
+                                respondToClient(ServerResponse.GAME_NOT_FOUND);
                             } else {
                                 if (game.hasStarted()) {
-                                    respondToClient("Game already started");
+                                    respondToClient(ServerResponse.GAME_ALREADY_STARTED);
                                     return;
                                 }
                                 if (game.addPlayer(msgParts[2])) {
-                                    respondToClient(gameId);
+                                    respondToClient(ServerResponse.OK ,gameId);
                                 } else {
-                                    respondToClient("Name taken");
+                                    respondToClient(ServerResponse.NAME_TAKEN);
                                 }
                             }
                             break;
@@ -120,7 +155,8 @@ public class SocketServer {
                             game = Games.getGame(g -> g.id == Long.parseLong(gameId));
                             if (game == null) {
                                 System.out.println("404 not found");
-                                respondToClient("404 not found");
+                                respondToClient(ServerResponse.GAME_NOT_FOUND);
+
                             } else {
                                 if (msgParts.length > 2) {
                                     game.removePlayer(msgParts[2]);
@@ -131,7 +167,7 @@ public class SocketServer {
                                     Games.removeGame(g -> g.id == Long.parseLong(gameId));
                                     System.out.println("Game ended because all players left");
                                 }
-                                respondToClient("ok");
+                                respondToClient(ServerResponse.OK);
 
                             }
                             break;
@@ -139,15 +175,17 @@ public class SocketServer {
                             gameId = msgParts[1];
                             game = Games.getGame(g -> g.id == Long.parseLong(gameId));
                             if (game == null) {
-                                respondToClient("404 not found");
+                                respondToClient(ServerResponse.GAME_NOT_FOUND);
+
                             } else {
                                 Game.Player p = game.getPlayer(pl -> pl.name.equals(msgParts[2]));
                                 if (p == null) {
-                                    respondToClient("404 not found");
+                                    respondToClient(ServerResponse.GAME_NOT_FOUND);
                                 } else {
                                     p.lastPing = System.currentTimeMillis();
                                     p.isReady = true;
-                                    respondToClient("ok");
+                                    respondToClient(ServerResponse.OK);
+
                                 }
                             }
                             break;
@@ -155,7 +193,7 @@ public class SocketServer {
                             String hostName = msgParts[1];
                             Game g = Games.createNewGame();
                             g.addPlayer(hostName);
-                            respondToClient(g.id + "");
+                            respondToClient(ServerResponse.OK , g.id +"");
 
                             break;
                     }

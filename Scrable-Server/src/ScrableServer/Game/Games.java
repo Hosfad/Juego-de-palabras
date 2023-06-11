@@ -42,6 +42,18 @@ public class Games {
         return false;
     }
 
+    public static List<Game> all(Predicate<Game> g) {
+        List<Game> games = new ArrayList<>();
+        for (Game game : activeGames) {
+            if (g.test(game)) {
+                games.add(game);
+            }
+        }
+        return games;
+    }
+    public static List<Game> all() {
+        return activeGames;
+    }
     public static Game getGame(Predicate<Game> filter) {
         for (Game game : activeGames) {
             if (filter.test(game)) {

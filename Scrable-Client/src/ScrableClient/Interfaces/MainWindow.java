@@ -4,6 +4,8 @@ import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
 import ScrableClient.SocketClient;
 import ScrableServer.Game.Game;
+import ScrableServer.ServerResponse;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -37,46 +39,45 @@ public class MainWindow extends DreamFrame {
                 return;
             // Create new game
             String res = SocketClient.sendMessage("create-game," + username);
-            if (res.isEmpty()) {
-                JOptionPane.showMessageDialog(ctx, "Error: " + res);
+            if (res.startsWith("OK:")) {
+                res = res.substring(3);
+                Game g = new Game(Long.parseLong(res));
+                g.addPlayer(username);
+
+                LobbyWindow lobbyWindow = new LobbyWindow(g , username);
+
+                setVisible(false);
+                lobbyWindow.setVisible(true);
                 return;
+
             }
-            Game g = new Game(Long.parseLong(res));
-            g.addPlayer(username);
-
-            LobbyWindow lobbyWindow = new LobbyWindow(g);
-            lobbyWindow.currentUser = username;
-
-            setVisible(false);
-            lobbyWindow.setVisible(true);
+            JOptionPane.showMessageDialog(ctx, "Error: " + res);
         });
 
         createButton("Join Game", _e -> {
             JTextField gameId = new JTextField(), username = new JTextField();
             String gameIdText = gameId.getText(), usernameText = username.getText();
-            Object[] message = { "Game id :", gameId, "Username :", username };
+            Object[] message = {"Game id :", gameId, "Username :", username};
 
             int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
             if (option != JOptionPane.OK_OPTION || gameIdText.isEmpty() || usernameText.isEmpty())
                 return;
 
             String response = SocketClient.sendMessage("join-game," + gameIdText + "," + usernameText);
+            if (response != null && response.startsWith("OK:")) {
+                // Start new game
+                Game g = new Game(Long.parseLong(response.substring(3)));
+                g.addPlayer(usernameText);
+                LobbyWindow lobbyWindow = new LobbyWindow(g,usernameText);
+                lobbyWindow.setVisible(true);
+                setVisible(false);
 
-            if (response == null || response.equals(""))
-                JOptionPane.showMessageDialog(getParent(), "Error: " + response);
-
-            switch (response) {
-                case "Game already started" -> showDialog("Game " + gameIdText + " already started");
-                case "Name taken" -> showDialog("Name " + usernameText + " is already taken");
-                default -> {
-                    Game g = new Game(Long.parseLong(response));
-                    g.addPlayer(usernameText);
-                    LobbyWindow lobbyWindow = new LobbyWindow(g);
-                    lobbyWindow.currentUser = usernameText;
-                    lobbyWindow.setVisible(true);
-                    setVisible(false);
-                }
-
+            }
+            ServerResponse res = ServerResponse.valueOf(response.split(":")[0]);
+            switch (res) {
+                case GAME_ALREADY_STARTED -> showDialog("Game " + gameIdText + " already started");
+                case NAME_TAKEN -> showDialog("Name " + usernameText + " is already taken");
+                default -> JOptionPane.showMessageDialog(getParent(), "Error: " + response);
             }
         });
 
@@ -91,10 +92,6 @@ public class MainWindow extends DreamFrame {
         DreamButton button = new DreamButton(text);
         button.addActionListener(listener);
         content.add(button);
-    }
-
-    public static void main(String[] args) {
-        new MainWindow().setVisible(true);
     }
 
 }

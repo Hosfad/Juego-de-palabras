@@ -1,844 +1,842 @@
-{
- "words" :
-[{
-    "word": "abajo",
-    "definition": "en la parte inferior"
-  },
-  {
-    "word": "abierto",
-    "definition": "que no está cerrado"
-  },
-  {
-    "word": "bonito",
-    "definition": "hermoso o atractivo"
-  },
-  {
-    "word": "bueno",
-    "definition": "que tiene bondad o calidad positiva"
-  },
-  {
-    "word": "casa",
-    "definition": "edificación que sirve de vivienda o morada"
-  },
-  {
-    "word": "comida",
-    "definition": "alimento que se consume para satisfacer las necesidades nutritivas del cuerpo"
-  },
-  {
-    "word": "dulce",
-    "definition": "que tiene sabor parecido al azúcar o la miel"
-  },
-  {
-    "word": "dormir",
-    "definition": "reposar en un estado de sueño"
-  },
-  {
-    "word": "energía",
-    "definition": "fuerza o capacidad para realizar trabajo"
-  },
-  {
-    "word": "escuela",
-    "definition": "establecimiento educativo"
-  },
-  {
-    "word": "fácil",
-    "definition": "que no requiere esfuerzo o dificultad"
-  },
-  {
-    "word": "frío",
-    "definition": "temperatura baja o falta de calor"
-  },
-  {
-    "word": "grande",
-    "definition": "de tamaño superior a lo normal"
-  },
-  {
-    "word": "gato",
-    "definition": "animal doméstico de cuatro patas que se utiliza como mascota y es conocido por su habilidad para cazar ratones"
-  },
-  {
-    "word": "hablar",
-    "definition": "expresar palabras con el fin de comunicarse"
-  },
-  {
-    "word": "iglesia",
-    "definition": "templo o lugar de culto cristiano"
-  },
-  {
-    "word": "inteligente",
-    "definition": "que tiene capacidad para comprender y aprender con facilidad"
-  },
-  {
-    "word": "joven",
-    "definition": "que tiene poca edad o está en la primera etapa de la vida"
-  },
-  {
-    "word": "jugar",
-    "definition": "participar en un juego o deporte"
-  },
-  {
-    "word": "kilo",
-    "definition": "unidad de medida de masa que equivale a mil gramos"
-  },
-  {
-    "word": "lindo",
-    "definition": "hermoso o atractivo"
-  },
-  {
-    "word": "leer",
-    "definition": "interpretar y comprender un texto escrito"
-  },
-  {
-    "word": "música",
-    "definition": "arte de combinar los sonidos y los ritmos"
-  },
-  {
-    "word": "mundo",
-    "definition": "conjunto de todo lo existente"
-  },
-  {
-    "word": "niño",
-    "definition": "ser humano en la primera etapa de la vida"
-  },
-  {
-    "word": "noche",
-    "definition": "período de oscuridad que transcurre entre la p"
-  },
-  {
-    "word": "objetivo",
-    "definition": "meta o propósito a alcanzar"
-  },
-  {
-    "word": "oportunidad",
-    "definition": "momento o circunstancia favorable para realizar algo"
-  },
-  {
-    "word": "paz",
-    "definition": "situación de tranquilidad y ausencia de conflicto"
-  },
-  {
-    "word": "perro",
-    "definition": "animal doméstico de cuatro patas que se utiliza como mascota o en labores de pastoreo, caza o seguridad"
-  },
-  {
-    "word": "querer",
-    "definition": "sentir afecto hacia alguien o algo"
-  },
-  {
-    "word": "rápido",
-    "definition": "que se mueve o actúa con velocidad"
-  },
-  {
-    "word": "rojo",
-    "definition": "color que se encuentra entre el naranja y el violeta"
-  },
-  {
-    "word": "silla",
-    "definition": "asiento con respaldo y generalmente cuatro patas"
-  },
-  {
-    "word": "sol",
-    "definition": "estrella que ilumina y da calor a la Tierra"
-  },
-  {
-    "word": "trabajo",
-    "definition": "actividad que se realiza con el fin de obtener un beneficio o cumplir una tarea"
-  },
-  {
-    "word": "tiempo",
-    "definition": "duración o intervalo en el que transcurren los eventos"
-  },
-  {
-    "word": "uva",
-    "definition": "fruta redonda y pequeña, con piel fina y jugosa pulpa"
-  },
-  {
-    "word": "universidad",
-    "definition": "institución de educación superior que imparte diversos niveles de estudios académicos"
-  },
-  {
-    "word": "valor",
-    "definition": "cualidad que se atribuye a algo o alguien y lo"
-  } ,
-  {
-    "word": "verde",
-    "definition": "color que se encuentra entre el amarillo y el azul"
-  },
-  {
-    "word": "vida",
-    "definition": "condición de existir y desarrollarse como ser vivo"
-  },
-  {
-    "word": "vino",
-    "definition": "bebida alcohólica que se obtiene a partir de la fermentación del zumo de uva"
-  },
-  {
-    "word": "y",
-    "definition": "conjunción copulativa que une dos o más términos"
-  },
-  {
-    "word": "zapato",
-    "definition": "calzado que cubre el pie y parte del tobillo"
-  },
-  {
-    "word": "abogado",
-    "definition": "profesional que asesora y representa a sus clientes en cuestiones legales"
-  },
-  {
-    "word": "alumno",
-    "definition": "estudiante que asiste a una escuela, colegio o universidad"
-  },
-  {
-    "word": "belleza",
-    "definition": "cualidad de aquello que resulta atractivo a la vista o a los sentidos"
-  },
-  {
-    "word": "bolsillo",
-    "definition": "compartimento de la ropa en el que se pueden guardar objetos pequeños"
-  },
-  {
-    "word": "bueno",
-    "definition": "que tiene bondad, virtud o excelencia"
-  },
-  {
-    "word": "cambio",
-    "definition": "acción y efecto de cambiar una cosa por otra"
-  },
-  {
-    "word": "caro",
-    "definition": "que tiene un precio elevado"
-  },
-  {
-    "word": "casa",
-    "definition": "edificación destinada a ser habitada por personas"
-  },
-  {
-    "word": "ciudad",
-    "definition": "núcleo urbano de gran tamaño, con una densa población y una compleja infraestructura"
-  },
-  {
-    "word": "comida",
-    "definition": "conjunto de alimentos que se consumen en una o varias ingestas"
-  },
-  {
-    "word": "creer",
-    "definition": "tener fe o confianza en algo o alguien"
-  },
-  {
-    "word": "cuerpo",
-    "definition": "conjunto de partes y órganos que forman un ser vivo"
-  },
-  {
-    "word": "deporte",
-    "definition": "actividad física o juego que se practica siguiendo unas reglas"
-  },
-  {
-    "word": "dinero",
-    "definition": "medio de intercambio que se utiliza para adquirir bienes y servicios"
-  },
-  {
-    "word": "dulce",
-    "definition": "que tiene un sabor azucarado o parecido al azúcar"
-  },
-  {
-    "word": "edad",
-    "definition": "tiempo transcurrido desde el nacimiento de una persona hasta el momento presente"
-  },
-  {
-    "word": "empezar",
-    "definition": "iniciar o comenzar una actividad o proceso"
-  },
-  {
-    "word": "encontrar",
-    "definition": "hallar o descubrir algo o a alguien"
-  },
-  {
-    "word": "escuela",
-    "definition": "institución educativa en la que se imparte enseñanza a niños y jóvenes"
-  },
-  {
-    "word": "esperar",
-    "definition": "aguardar con la expectativa de que algo suceda o llegue"
-  },
-  {
-    "word": "estar",
-    "definition": "encontrarse en un lugar o situación determinados"
-  },
-  {
-    "word": "experiencia",
-    "definition": "conocimientos adquiridos a través de la práctica o vivencia de situaciones diversas"
-  },
-  {
-    "word": "fácil",
-    "definition": "que no requiere mucho esfuerzo o dificultad para ser realizado"
-  },
-  {
-    "word": "familia",
-    "definition": "grupo de personas emparentadas entre sí que conviven y comparten ciertos valores y costumbres"
-  },
-  {
-    "word": "fiesta",
-    "definition": "celebración o reunión festiva en la que se comparte comida, bebida y diversión"
-  },
-  {
-    "word": "futuro",
-    "definition": "tiempo que está por venir o que sucederá después del presente"
-  },
-  {
-    "word": "gente",
-    "definition": "conjunto de personas que comparten características similares"
-  },
-  {
-    "word": "grande",
-    "definition": "que tiene un tamaño mayor al promedio"
-  },
-  {
-    "word": "hablar",
-    "definition": "emitir sonidos con la boca para comunicarse con otros"
-  },
-  {
-    "word": "hacer",
-    "definition": "realizar una acción o actividad determinada"
-  },
-  {
-    "word": "historia",
-    "definition": "relato o narración de los hechos del pasado"
-  },
-  {
-    "word": "idea",
-    "definition": "representación mental de una cosa o concepto abstracto"
-  },
-  {
-    "word": "joven",
-    "definition": "persona que se encuentra en la etapa de la vida entre la niñez y la adultez"
-  },
-  {
-    "word": "jugar",
-    "definition": "participar en un juego o deporte"
-  },
-  {
-    "word": "leer",
-    "definition": "interpretar y comprender el significado de un texto escrito"
-  },
-  {
-    "word": "lindo",
-    "definition": "que tiene una apariencia agradable o bonita"
-  },
-  {
-    "word": "llave",
-    "definition": "objeto que se utiliza para abrir o cerrar una cerradura"
-  },
-  {
-    "word": "lugar",
-    "definition": "espacio físico determinado en el que se encuentra algo o alguien"
-  },
-  {
-    "word": "mañana",
-    "definition": "periodo de tiempo que transcurre desde la salida del sol hasta el mediodía"
-  },
-  {
-    "word": "más",
-    "definition": "en mayor cantidad o grado"
-  },
-  {
-    "word": "medio",
-    "definition": "elemento o ambiente que rodea o influye sobre algo o alguien"
-  },
-  {
-    "word": "mes",
-    "definition": "unidad de tiempo que equivale a 30 o 31 días, dependiendo del mes del año"
-  },
-  {
-    "word": "mismo",
-    "definition": "que es idéntico o igual a otra cosa o situación"
-  },
-  {
-    "word": "mundo",
-    "definition": "conjunto de seres vivos, objetos y fenómenos que existen en el espacio y el tiempo"
-  },
-  {
-    "word": "nacer",
-    "definition": "venir al mundo y empezar a vivir"
-  },
-  {
-    "word": "nada",
-    "definition": "ausencia de cualquier cosa o elemento"
-  },
-  {
-    "word": "natural",
-    "definition": "que pertenece o se relaciona con la naturaleza o el mundo"
-  },
-  {
-    "word": "obra",
-    "definition": "trabajo o creación artística realizada por una persona"
-  },
-  {
-    "word": "ocho",
-    "definition": "número que sigue al siete y precede al nueve"
-  },
-  {
-    "word": "oro",
-    "definition": "metal precioso de color amarillo brillante y alta ductilidad y maleabilidad"
-  },
-  {
-    "word": "país",
-    "definition": "territorio, población y gobierno que constituyen una nación"
-  },
-  {
-    "word": "palabra",
-    "definition": "conjunto de sonidos o grafías que tienen un significado determinado"
-  },
-  {
-    "word": "papel",
-    "definition": "material hecho a partir de pulpa de madera y utilizado para escribir o imprimir"
-  },
-  {
-    "word": "parar",
-    "definition": "detener o interrumpir el movimiento de algo o alguien"
-  },
-  {
-    "word": "pasado",
-    "definition": "tiempo anterior al presente, que ya ha ocurrido"
-  },
-  {
-    "word": "paz",
-    "definition": "estado de tranquilidad, calma y ausencia de conflictos o guerras"
-  },
-  {
-    "word": "perder",
-    "definition": "dejar de tener algo o alguien que se tenía"
-  },
-  {
-    "word": "pesado",
-    "definition": "que tiene un peso elevado o difícil de levantar"
-  },
-  {
-    "word": "pintar",
-    "definition": "crear una obra de arte utilizando pigmentos y un soporte"
-  },
-  {
-    "word": "poder",
-    "definition": "tener la capacidad o la autoridad para hacer algo"
-  },
-  {
-    "word": "poner",
-    "definition": "colocar algo en un determinado lugar o posición"
-  },
-  {
-    "word": "preocupar",
-    "definition": "causar inquietud o ansiedad por algo"
-  },
-  {
-    "word": "preparar",
-    "definition": "hacer los arreglos necesarios para llevar a cabo una tarea o actividad"
-  },
-  {
-    "word": "problema",
-    "definition": "situación o cuestión que requiere una solución o resolución"
-  },
-  {
-    "word": "profesor",
-    "definition": "persona que se dedica a enseñar en una institución educativa"
-  },
-  {
-    "word": "querer",
-    "definition": "sentir amor, afecto o deseo hacia alguien o algo"
-  },
-  {
-    "word": "rápido",
-    "definition": "que se mueve o sucede con velocidad"
-  },
-  {
-    "word": "real",
-    "definition": "que existe o es verdadero en la realidad"
-  },
-  {
-    "word": "recibir",
-    "definition": "recoger o aceptar algo que se le da o envía"
-  },
-  {
-    "word": "regresar",
-    "definition": "volver al lugar o situación de origen"
-  },
-  {
-    "word": "responder",
-    "definition": "dar una contestación o reacción a una pregunta o situación"
-  },
-  {
-    "word": "ropa",
-    "definition": "conjunto de prendas de vestir que cubren el cuerpo humano"
-  },
-  {
-    "word": "roto",
-    "definition": "que está desgarrado, rasgado o fracturado"
-  },
-  {
-    "word": "saber",
-    "definition": "conocer o tener información acerca de algo"
-  },
-  {
-    "word": "sacar",
-    "definition": "extraer o retirar algo de un lugar o de una situación"
-  },
-  {
-    "word": "salir",
-    "definition": "abandonar o moverse hacia fuera de un lugar o situación"
-  },
-  {
-    "word": "seco",
-    "definition": "que carece de humedad o líquido"
-  },
-  {
-    "word": "seguir",
-    "definition": "continuar o persistir en una acción o estado"
-  },
-  {
-    "word": "sentir",
-    "definition": "percibir o experimentar sensaciones o emociones"
-  },
-  {
-    "word": "ser",
-    "definition": "indica la existencia o la identidad de algo o alguien"
-  },
-  {
-    "word": "servir",
-    "definition": "prestar una ayuda o utilidad a alguien o algo"
-  },
-  {
-    "word": "siempre",
-    "definition": "en todo momento o en cualquier circunstancia"
-  },
-  {
-    "word": "siglo",
-    "definition": "período de cien años"
-  },
-  {
-    "word": "silla",
-    "definition": "mueble con respaldo y asiento, destinado para sentarse"
-  },
-  {
-    "word": "sistema",
-    "definition": "conjunto de elementos que interactúan entre sí para cumplir una función"
-  },
-  {
-    "word": "sobre",
-    "definition": "envoltorio o cubierta que contiene o protege algo"
-  },
-  {
-    "word": "solo",
-    "definition": "que está sin compañía o ayuda"
-  },
-  {
-    "word": "sombrero",
-    "definition": "prenda de vestir que se coloca en la cabeza para protegerse del sol o del frío"
-  },
-  {
-    "word": "sonido",
-    "definition": "vibración o perturbación que se propaga en el aire y que se percibe por el oído"
-  },
-  {
-    "word": "suelo",
-    "definition": "superficie terrestre o piso de una edificación"
-  },
-  {
-    "word": "suficiente",
-    "definition": "que es adecuado o necesario para cumplir un objetivo o una función"
-  },
-  {
-    "word": "sujetar",
-    "definition": "agarrar o sujetar algo o alguien para evitar que se mueva"
-  },
-  {
-    "word": "superficie",
-    "definition": "parte externa o superior de un cuerpo o de un objeto"
-  },
-  {
-    "word": "surgir",
-    "definition": "aparecer o manifestarse de forma repentina"
-  },
-  {
-    "word": "tabla",
-    "definition": "pieza plana y alargada de madera u otro material"
-  },
-  {
-    "word": "tal vez",
-    "definition": "posiblemente o quizás"
-  },
-  {
-    "word": "también",
-    "definition": "indica que algo es igual o semejante a lo que se acaba de mencionar"
-  },
-  {
-    "word": "tapar",
-    "definition": "cubrir o cerrar algo para que no se vea o para protegerlo"
-  },
-  {
-    "word": "tema",
-    "definition": "asunto o materia de la que se trata o se habla"
-  },
-  {
-    "word": "tener",
-    "definition": "poseer o estar en posesión de algo"
-  },
-  {
-    "word": "terrible",
-    "definition": "que causa gran temor, espanto o dolor"
-  },
-  {
-    "word": "texto",
-    "definition": "conjunto de palabras o frases que se expresan por escrito o impresas"
-  },
-  {
-    "word": "tienda",
-    "definition": "establecimiento comercial donde se venden productos al público"
-  },
-  {
-    "word": "tierra",
-    "definition": "planeta habitado por los seres humanos y otros organismos vivos"
-  },
-  {
-    "word": "tijera",
-    "definition": "instrumento de corte formado por dos hojas que se articulan por un eje común"
-  },
-  {
-    "word": "tirar",
-    "definition": "arrojar o lanzar algo con fuerza"
-  },
-  {
-    "word": "tocar",
-    "definition": "contactar o golpear suavemente con los dedos o la mano"
-  },
-  {
-    "word": "todavía",
-    "definition": "a pesar de lo que ha sucedido, aún no ha terminado o completado"
-  },
-  {
-    "word": "todo",
-    "definition": "que abarca la totalidad de algo o alguien"
-  },
-  {
-    "word": "tomar",
-    "definition": "coger o agarrar algo con la mano"
-  },
-  {
-    "word": "tono",
-    "definition": "intensidad o matiz de un sonido"
-  },
-  {
-    "word": "total",
-    "definition": "que abarca la totalidad de algo o alguien"
-  },
-  {
-    "word": "trabajo",
-    "definition": "actividad que se realiza para conseguir un objetivo"
-  },
-  {
-    "word": "traje",
-    "definition": "conjunto de prendas de vestir que se usan juntas"
-  },
-  {
-    "word": "tranquilo",
-    "definition": "que se encuentra en calma o que no tiene preocupaciones"
-  },
-  {
-    "word": "transparencia",
-    "definition": "cualidad de permitir que se vea a través de algo"
-  },
-  {
-    "word": "transporte",
-    "definition": "medio o vehículo utilizado para desplazarse de un lugar a otro"
-  },
-  {
-    "word": "tratar",
-    "definition": "ocuparse de alguien o algo con una intención determinada"
-  },
-  {
-    "word": "triunfo",
-    "definition": "victoria o éxito en algo"
-  },
-  {
-    "word": "tu",
-    "definition": "pronombre personal de segunda persona singular que indica a la persona a la que se dirige el hablante"
-  },
-  {
-    "word": "tubo",
-    "definition": "cilindro de material rígido utilizado para conducir fluidos o gases"
-  },
-  {
-    "word": "tumba",
-    "definition": "lugar donde se deposita el cuerpo de una persona fallecida"
-  },
-  {
-    "word": "turismo",
-    "definition": "actividad que consiste en viajar por placer o para conocer lugares nuevos"
-  },
-  {
-    "word": "último",
-    "definition": "que se encuentra en la posición final o final de una serie de elementos"
-  },
-  {
-    "word": "unidad",
-    "definition": "conjunto de elementos que forman un todo coherente y homogéneo"
-  },
-  {
-    "word": "uno",
-    "definition": "número que representa la cantidad de un solo elemento"
-  },
-  {
-    "word": "universidad",
-    "definition": "institución educativa de nivel superior que imparte estudios universitarios"
-  },
-  {
-    "word": "uno",
-    "definition": "número que representa la cantidad de un solo elemento"
-  },
-  {
-    "word": "usar",
-    "definition": "hacer uso de algo para un determinado fin"
-  },
-  {
-    "word": "usuario",
-    "definition": "persona que utiliza un servicio o una aplicación informática"
-  },
-  {
-    "word": "usted",
-    "definition": "pronombre de segunda persona singular que se utiliza para mostrar respeto o cortesía"
-  },
-  {
-    "word": "vacío",
-    "definition": "espacio que no está ocupado por nada"
-  },
-  {
-    "word": "valor",
-    "definition": "importancia o significado de algo"
-  },
-  {
-    "word": "vapor",
-    "definition": "gas producido por la evaporación de un líquido"
-  },
-  {
-    "word": "varios",
-    "definition": "diversos o distintos en su naturaleza, especie o calidad"
-  },
-  {
-    "word": "vaso",
-    "definition": "recipiente de vidrio o de otro material utilizado para contener líquidos"
-  },
-  {
-    "word": "vecino",
-    "definition": "persona que vive en la misma zona o comunidad que otra"
-  },
-  {
-    "word": "vehículo",
-    "definition": "medio de transporte utilizado para desplazarse de un lugar a otro"
-  },
-  {
-    "word": "veinte",
-    "definition": "número que representa la cantidad de dos veces diez"
-  },
-  {
-    "word": "velocidad",
-    "definition": "rapidez o velocidad a la que se mueve algo"
-  },
-  {
-    "word": "vender",
-    "definition": "entregar algo a cambio de dinero o de otro bien o servicio"
-  },
-  {
-    "word": "veneno",
-    "definition": "sustancia tóxica que causa daño o muerte a los seres vivos"
-  },
-  {
-    "word": "venta",
-    "definition": "acción de vender o transferir la propiedad de algo a cambio de dinero"
-  },
-  {
-    "word": "ver",
-    "definition": "percibir algo a través de los ojos"
-  },
-  {
-    "word": "verano",
-    "definition": "estación del año que se caracteriza por altas temperaturas y días largos"
-  },
-  {
-    "word": "verde",
-    "definition": "color que se encuentra en la naturaleza en hojas y plantas"
-  },
-  {
-    "word": "versión",
-    "definition": "interpretación o traducción de un texto o de una obra artística"
-  },
-  {
-    "word": "vestido",
-    "definition": "prenda de vestir que cubre el cuerpo de una persona de la cintura hacia abajo"
-  },
-  {
-    "word": "vez",
-    "definition": "ocasión o momento en que ocurre algo"
-  },
-  {
-    "word": "viaje",
-    "definition": "desplazamiento de una persona o de un medio de transporte de un lugar a otro"
-  },
-  {
-    "word": "vida",
-    "definition": "periodo de tiempo que transcurre desde el nacimiento hasta la muerte de un ser vivo"
-  },
-  {
-    "word": "video",
-    "definition": "grabación de imágenes y sonido en formato digital"
-  },
-  {
-    "word": "viejo",
-    "definition": "persona o cosa que ha existido durante mucho tiempo"
-  },
-  {
-    "word": "viento",
-    "definition": "movimiento del aire que se produce por diferencias de presión atmosférica"
-  },
-  {
-    "word": "villa",
-    "definition": "pueblo pequeño o ciudad sin importancia"
-  },
-  {
-    "word": "vinagre",
-    "definition": "líquido ácido que se utiliza como condimento en la cocina"
-  },
-  {
-    "word": "vino",
-    "definition": "bebida alcohólica que se obtiene de la fermentación del zumo de uva"
-  },
-  {
-    "word": "violin",
-    "definition": "instrumento musical de cuerda frotada que se toca con un arco"
-  },
-  {
-    "word": "violencia",
-    "definition": "uso de la fuerza física para dañar o herir a alguien"
-  },
-  {
-    "word": "virgen",
-    "definition": "persona que no ha tenido relaciones sexuales"
-  },
-  {
-    "word": "virtud",
-    "definition": "cualidad positiva o buena conducta de una persona"
-  },
-  {
-    "word": "visita",
-    "definition": "acción de ir a ver a alguien o a un lugar"
-  },
-  {
-    "word": "vista",
-    "definition": "sentido que permite percibir la forma y los colores de los objetos"
-  },
-  {
-    "word": "vivir",
-    "definition": "tener vida o estar en el estado de estar vivo"
-  },
-  {
-    "word": "volar",
-    "definition": "moverse a través del aire con ayuda de las alas o de algún medio de transporte"
-  }
-]
-}
+ [
+    {
+      "name": "abajo",
+      "definition": "en la parte inferior"
+    },
+    {
+      "name": "abierto",
+      "definition": "que no está cerrado"
+    },
+    {
+      "name": "bonito",
+      "definition": "hermoso o atractivo"
+    },
+    {
+      "name": "bueno",
+      "definition": "que tiene bondad o calidad positiva"
+    },
+    {
+      "name": "casa",
+      "definition": "edificación que sirve de vivienda o morada"
+    },
+    {
+      "name": "comida",
+      "definition": "alimento que se consume para satisfacer las necesidades nutritivas del cuerpo"
+    },
+    {
+      "name": "dulce",
+      "definition": "que tiene sabor parecido al azúcar o la miel"
+    },
+    {
+      "name": "dormir",
+      "definition": "reposar en un estado de sueño"
+    },
+    {
+      "name": "energía",
+      "definition": "fuerza o capacidad para realizar trabajo"
+    },
+    {
+      "name": "escuela",
+      "definition": "establecimiento educativo"
+    },
+    {
+      "name": "fácil",
+      "definition": "que no requiere esfuerzo o dificultad"
+    },
+    {
+      "name": "frío",
+      "definition": "temperatura baja o falta de calor"
+    },
+    {
+      "name": "grande",
+      "definition": "de tamaño superior a lo normal"
+    },
+    {
+      "name": "gato",
+      "definition": "animal doméstico de cuatro patas que se utiliza como mascota y es conocido por su habilidad para cazar ratones"
+    },
+    {
+      "name": "hablar",
+      "definition": "expresar palabras con el fin de comunicarse"
+    },
+    {
+      "name": "iglesia",
+      "definition": "templo o lugar de culto cristiano"
+    },
+    {
+      "name": "inteligente",
+      "definition": "que tiene capacidad para comprender y aprender con facilidad"
+    },
+    {
+      "name": "joven",
+      "definition": "que tiene poca edad o está en la primera etapa de la vida"
+    },
+    {
+      "name": "jugar",
+      "definition": "participar en un juego o deporte"
+    },
+    {
+      "name": "kilo",
+      "definition": "unidad de medida de masa que equivale a mil gramos"
+    },
+    {
+      "name": "lindo",
+      "definition": "hermoso o atractivo"
+    },
+    {
+      "name": "leer",
+      "definition": "interpretar y comprender un texto escrito"
+    },
+    {
+      "name": "música",
+      "definition": "arte de combinar los sonidos y los ritmos"
+    },
+    {
+      "name": "mundo",
+      "definition": "conjunto de todo lo existente"
+    },
+    {
+      "name": "niño",
+      "definition": "ser humano en la primera etapa de la vida"
+    },
+    {
+      "name": "noche",
+      "definition": "período de oscuridad que transcurre entre la p"
+    },
+    {
+      "name": "objetivo",
+      "definition": "meta o propósito a alcanzar"
+    },
+    {
+      "name": "oportunidad",
+      "definition": "momento o circunstancia favorable para realizar algo"
+    },
+    {
+      "name": "paz",
+      "definition": "situación de tranquilidad y ausencia de conflicto"
+    },
+    {
+      "name": "perro",
+      "definition": "animal doméstico de cuatro patas que se utiliza como mascota o en labores de pastoreo, caza o seguridad"
+    },
+    {
+      "name": "querer",
+      "definition": "sentir afecto hacia alguien o algo"
+    },
+    {
+      "name": "rápido",
+      "definition": "que se mueve o actúa con velocidad"
+    },
+    {
+      "name": "rojo",
+      "definition": "color que se encuentra entre el naranja y el violeta"
+    },
+    {
+      "name": "silla",
+      "definition": "asiento con respaldo y generalmente cuatro patas"
+    },
+    {
+      "name": "sol",
+      "definition": "estrella que ilumina y da calor a la Tierra"
+    },
+    {
+      "name": "trabajo",
+      "definition": "actividad que se realiza con el fin de obtener un beneficio o cumplir una tarea"
+    },
+    {
+      "name": "tiempo",
+      "definition": "duración o intervalo en el que transcurren los eventos"
+    },
+    {
+      "name": "uva",
+      "definition": "fruta redonda y pequeña, con piel fina y jugosa pulpa"
+    },
+    {
+      "name": "universidad",
+      "definition": "institución de educación superior que imparte diversos niveles de estudios académicos"
+    },
+    {
+      "name": "valor",
+      "definition": "cualidad que se atribuye a algo o alguien y lo"
+    },
+    {
+      "name": "verde",
+      "definition": "color que se encuentra entre el amarillo y el azul"
+    },
+    {
+      "name": "vida",
+      "definition": "condición de existir y desarrollarse como ser vivo"
+    },
+    {
+      "name": "vino",
+      "definition": "bebida alcohólica que se obtiene a partir de la fermentación del zumo de uva"
+    },
+    {
+      "name": "y",
+      "definition": "conjunción copulativa que une dos o más términos"
+    },
+    {
+      "name": "zapato",
+      "definition": "calzado que cubre el pie y parte del tobillo"
+    },
+    {
+      "name": "abogado",
+      "definition": "profesional que asesora y representa a sus clientes en cuestiones legales"
+    },
+    {
+      "name": "alumno",
+      "definition": "estudiante que asiste a una escuela, colegio o universidad"
+    },
+    {
+      "name": "belleza",
+      "definition": "cualidad de aquello que resulta atractivo a la vista o a los sentidos"
+    },
+    {
+      "name": "bolsillo",
+      "definition": "compartimento de la ropa en el que se pueden guardar objetos pequeños"
+    },
+    {
+      "name": "bueno",
+      "definition": "que tiene bondad, virtud o excelencia"
+    },
+    {
+      "name": "cambio",
+      "definition": "acción y efecto de cambiar una cosa por otra"
+    },
+    {
+      "name": "caro",
+      "definition": "que tiene un precio elevado"
+    },
+    {
+      "name": "casa",
+      "definition": "edificación destinada a ser habitada por personas"
+    },
+    {
+      "name": "ciudad",
+      "definition": "núcleo urbano de gran tamaño, con una densa población y una compleja infraestructura"
+    },
+    {
+      "name": "comida",
+      "definition": "conjunto de alimentos que se consumen en una o varias ingestas"
+    },
+    {
+      "name": "creer",
+      "definition": "tener fe o confianza en algo o alguien"
+    },
+    {
+      "name": "cuerpo",
+      "definition": "conjunto de partes y órganos que forman un ser vivo"
+    },
+    {
+      "name": "deporte",
+      "definition": "actividad física o juego que se practica siguiendo unas reglas"
+    },
+    {
+      "name": "dinero",
+      "definition": "medio de intercambio que se utiliza para adquirir bienes y servicios"
+    },
+    {
+      "name": "dulce",
+      "definition": "que tiene un sabor azucarado o parecido al azúcar"
+    },
+    {
+      "name": "edad",
+      "definition": "tiempo transcurrido desde el nacimiento de una persona hasta el momento presente"
+    },
+    {
+      "name": "empezar",
+      "definition": "iniciar o comenzar una actividad o proceso"
+    },
+    {
+      "name": "encontrar",
+      "definition": "hallar o descubrir algo o a alguien"
+    },
+    {
+      "name": "escuela",
+      "definition": "institución educativa en la que se imparte enseñanza a niños y jóvenes"
+    },
+    {
+      "name": "esperar",
+      "definition": "aguardar con la expectativa de que algo suceda o llegue"
+    },
+    {
+      "name": "estar",
+      "definition": "encontrarse en un lugar o situación determinados"
+    },
+    {
+      "name": "experiencia",
+      "definition": "conocimientos adquiridos a través de la práctica o vivencia de situaciones diversas"
+    },
+    {
+      "name": "fácil",
+      "definition": "que no requiere mucho esfuerzo o dificultad para ser realizado"
+    },
+    {
+      "name": "familia",
+      "definition": "grupo de personas emparentadas entre sí que conviven y comparten ciertos valores y costumbres"
+    },
+    {
+      "name": "fiesta",
+      "definition": "celebración o reunión festiva en la que se comparte comida, bebida y diversión"
+    },
+    {
+      "name": "futuro",
+      "definition": "tiempo que está por venir o que sucederá después del presente"
+    },
+    {
+      "name": "gente",
+      "definition": "conjunto de personas que comparten características similares"
+    },
+    {
+      "name": "grande",
+      "definition": "que tiene un tamaño mayor al promedio"
+    },
+    {
+      "name": "hablar",
+      "definition": "emitir sonidos con la boca para comunicarse con otros"
+    },
+    {
+      "name": "hacer",
+      "definition": "realizar una acción o actividad determinada"
+    },
+    {
+      "name": "historia",
+      "definition": "relato o narración de los hechos del pasado"
+    },
+    {
+      "name": "idea",
+      "definition": "representación mental de una cosa o concepto abstracto"
+    },
+    {
+      "name": "joven",
+      "definition": "persona que se encuentra en la etapa de la vida entre la niñez y la adultez"
+    },
+    {
+      "name": "jugar",
+      "definition": "participar en un juego o deporte"
+    },
+    {
+      "name": "leer",
+      "definition": "interpretar y comprender el significado de un texto escrito"
+    },
+    {
+      "name": "lindo",
+      "definition": "que tiene una apariencia agradable o bonita"
+    },
+    {
+      "name": "llave",
+      "definition": "objeto que se utiliza para abrir o cerrar una cerradura"
+    },
+    {
+      "name": "lugar",
+      "definition": "espacio físico determinado en el que se encuentra algo o alguien"
+    },
+    {
+      "name": "mañana",
+      "definition": "periodo de tiempo que transcurre desde la salida del sol hasta el mediodía"
+    },
+    {
+      "name": "más",
+      "definition": "en mayor cantidad o grado"
+    },
+    {
+      "name": "medio",
+      "definition": "elemento o ambiente que rodea o influye sobre algo o alguien"
+    },
+    {
+      "name": "mes",
+      "definition": "unidad de tiempo que equivale a 30 o 31 días, dependiendo del mes del año"
+    },
+    {
+      "name": "mismo",
+      "definition": "que es idéntico o igual a otra cosa o situación"
+    },
+    {
+      "name": "mundo",
+      "definition": "conjunto de seres vivos, objetos y fenómenos que existen en el espacio y el tiempo"
+    },
+    {
+      "name": "nacer",
+      "definition": "venir al mundo y empezar a vivir"
+    },
+    {
+      "name": "nada",
+      "definition": "ausencia de cualquier cosa o elemento"
+    },
+    {
+      "name": "natural",
+      "definition": "que pertenece o se relaciona con la naturaleza o el mundo"
+    },
+    {
+      "name": "obra",
+      "definition": "trabajo o creación artística realizada por una persona"
+    },
+    {
+      "name": "ocho",
+      "definition": "número que sigue al siete y precede al nueve"
+    },
+    {
+      "name": "oro",
+      "definition": "metal precioso de color amarillo brillante y alta ductilidad y maleabilidad"
+    },
+    {
+      "name": "país",
+      "definition": "territorio, población y gobierno que constituyen una nación"
+    },
+    {
+      "name": "palabra",
+      "definition": "conjunto de sonidos o grafías que tienen un significado determinado"
+    },
+    {
+      "name": "papel",
+      "definition": "material hecho a partir de pulpa de madera y utilizado para escribir o imprimir"
+    },
+    {
+      "name": "parar",
+      "definition": "detener o interrumpir el movimiento de algo o alguien"
+    },
+    {
+      "name": "pasado",
+      "definition": "tiempo anterior al presente, que ya ha ocurrido"
+    },
+    {
+      "name": "paz",
+      "definition": "estado de tranquilidad, calma y ausencia de conflictos o guerras"
+    },
+    {
+      "name": "perder",
+      "definition": "dejar de tener algo o alguien que se tenía"
+    },
+    {
+      "name": "pesado",
+      "definition": "que tiene un peso elevado o difícil de levantar"
+    },
+    {
+      "name": "pintar",
+      "definition": "crear una obra de arte utilizando pigmentos y un soporte"
+    },
+    {
+      "name": "poder",
+      "definition": "tener la capacidad o la autoridad para hacer algo"
+    },
+    {
+      "name": "poner",
+      "definition": "colocar algo en un determinado lugar o posición"
+    },
+    {
+      "name": "preocupar",
+      "definition": "causar inquietud o ansiedad por algo"
+    },
+    {
+      "name": "preparar",
+      "definition": "hacer los arreglos necesarios para llevar a cabo una tarea o actividad"
+    },
+    {
+      "name": "problema",
+      "definition": "situación o cuestión que requiere una solución o resolución"
+    },
+    {
+      "name": "profesor",
+      "definition": "persona que se dedica a enseñar en una institución educativa"
+    },
+    {
+      "name": "querer",
+      "definition": "sentir amor, afecto o deseo hacia alguien o algo"
+    },
+    {
+      "name": "rápido",
+      "definition": "que se mueve o sucede con velocidad"
+    },
+    {
+      "name": "real",
+      "definition": "que existe o es verdadero en la realidad"
+    },
+    {
+      "name": "recibir",
+      "definition": "recoger o aceptar algo que se le da o envía"
+    },
+    {
+      "name": "regresar",
+      "definition": "volver al lugar o situación de origen"
+    },
+    {
+      "name": "responder",
+      "definition": "dar una contestación o reacción a una pregunta o situación"
+    },
+    {
+      "name": "ropa",
+      "definition": "conjunto de prendas de vestir que cubren el cuerpo humano"
+    },
+    {
+      "name": "roto",
+      "definition": "que está desgarrado, rasgado o fracturado"
+    },
+    {
+      "name": "saber",
+      "definition": "conocer o tener información acerca de algo"
+    },
+    {
+      "name": "sacar",
+      "definition": "extraer o retirar algo de un lugar o de una situación"
+    },
+    {
+      "name": "salir",
+      "definition": "abandonar o moverse hacia fuera de un lugar o situación"
+    },
+    {
+      "name": "seco",
+      "definition": "que carece de humedad o líquido"
+    },
+    {
+      "name": "seguir",
+      "definition": "continuar o persistir en una acción o estado"
+    },
+    {
+      "name": "sentir",
+      "definition": "percibir o experimentar sensaciones o emociones"
+    },
+    {
+      "name": "ser",
+      "definition": "indica la existencia o la identidad de algo o alguien"
+    },
+    {
+      "name": "servir",
+      "definition": "prestar una ayuda o utilidad a alguien o algo"
+    },
+    {
+      "name": "siempre",
+      "definition": "en todo momento o en cualquier circunstancia"
+    },
+    {
+      "name": "siglo",
+      "definition": "período de cien años"
+    },
+    {
+      "name": "silla",
+      "definition": "mueble con respaldo y asiento, destinado para sentarse"
+    },
+    {
+      "name": "sistema",
+      "definition": "conjunto de elementos que interactúan entre sí para cumplir una función"
+    },
+    {
+      "name": "sobre",
+      "definition": "envoltorio o cubierta que contiene o protege algo"
+    },
+    {
+      "name": "solo",
+      "definition": "que está sin compañía o ayuda"
+    },
+    {
+      "name": "sombrero",
+      "definition": "prenda de vestir que se coloca en la cabeza para protegerse del sol o del frío"
+    },
+    {
+      "name": "sonido",
+      "definition": "vibración o perturbación que se propaga en el aire y que se percibe por el oído"
+    },
+    {
+      "name": "suelo",
+      "definition": "superficie terrestre o piso de una edificación"
+    },
+    {
+      "name": "suficiente",
+      "definition": "que es adecuado o necesario para cumplir un objetivo o una función"
+    },
+    {
+      "name": "sujetar",
+      "definition": "agarrar o sujetar algo o alguien para evitar que se mueva"
+    },
+    {
+      "name": "superficie",
+      "definition": "parte externa o superior de un cuerpo o de un objeto"
+    },
+    {
+      "name": "surgir",
+      "definition": "aparecer o manifestarse de forma repentina"
+    },
+    {
+      "name": "tabla",
+      "definition": "pieza plana y alargada de madera u otro material"
+    },
+    {
+      "name": "tal vez",
+      "definition": "posiblemente o quizás"
+    },
+    {
+      "name": "también",
+      "definition": "indica que algo es igual o semejante a lo que se acaba de mencionar"
+    },
+    {
+      "name": "tapar",
+      "definition": "cubrir o cerrar algo para que no se vea o para protegerlo"
+    },
+    {
+      "name": "tema",
+      "definition": "asunto o materia de la que se trata o se habla"
+    },
+    {
+      "name": "tener",
+      "definition": "poseer o estar en posesión de algo"
+    },
+    {
+      "name": "terrible",
+      "definition": "que causa gran temor, espanto o dolor"
+    },
+    {
+      "name": "texto",
+      "definition": "conjunto de palabras o frases que se expresan por escrito o impresas"
+    },
+    {
+      "name": "tienda",
+      "definition": "establecimiento comercial donde se venden productos al público"
+    },
+    {
+      "name": "tierra",
+      "definition": "planeta habitado por los seres humanos y otros organismos vivos"
+    },
+    {
+      "name": "tijera",
+      "definition": "instrumento de corte formado por dos hojas que se articulan por un eje común"
+    },
+    {
+      "name": "tirar",
+      "definition": "arrojar o lanzar algo con fuerza"
+    },
+    {
+      "name": "tocar",
+      "definition": "contactar o golpear suavemente con los dedos o la mano"
+    },
+    {
+      "name": "todavía",
+      "definition": "a pesar de lo que ha sucedido, aún no ha terminado o completado"
+    },
+    {
+      "name": "todo",
+      "definition": "que abarca la totalidad de algo o alguien"
+    },
+    {
+      "name": "tomar",
+      "definition": "coger o agarrar algo con la mano"
+    },
+    {
+      "name": "tono",
+      "definition": "intensidad o matiz de un sonido"
+    },
+    {
+      "name": "total",
+      "definition": "que abarca la totalidad de algo o alguien"
+    },
+    {
+      "name": "trabajo",
+      "definition": "actividad que se realiza para conseguir un objetivo"
+    },
+    {
+      "name": "traje",
+      "definition": "conjunto de prendas de vestir que se usan juntas"
+    },
+    {
+      "name": "tranquilo",
+      "definition": "que se encuentra en calma o que no tiene preocupaciones"
+    },
+    {
+      "name": "transparencia",
+      "definition": "cualidad de permitir que se vea a través de algo"
+    },
+    {
+      "name": "transporte",
+      "definition": "medio o vehículo utilizado para desplazarse de un lugar a otro"
+    },
+    {
+      "name": "tratar",
+      "definition": "ocuparse de alguien o algo con una intención determinada"
+    },
+    {
+      "name": "triunfo",
+      "definition": "victoria o éxito en algo"
+    },
+    {
+      "name": "tu",
+      "definition": "pronombre personal de segunda persona singular que indica a la persona a la que se dirige el hablante"
+    },
+    {
+      "name": "tubo",
+      "definition": "cilindro de material rígido utilizado para conducir fluidos o gases"
+    },
+    {
+      "name": "tumba",
+      "definition": "lugar donde se deposita el cuerpo de una persona fallecida"
+    },
+    {
+      "name": "turismo",
+      "definition": "actividad que consiste en viajar por placer o para conocer lugares nuevos"
+    },
+    {
+      "name": "último",
+      "definition": "que se encuentra en la posición final o final de una serie de elementos"
+    },
+    {
+      "name": "unidad",
+      "definition": "conjunto de elementos que forman un todo coherente y homogéneo"
+    },
+    {
+      "name": "uno",
+      "definition": "número que representa la cantidad de un solo elemento"
+    },
+    {
+      "name": "universidad",
+      "definition": "institución educativa de nivel superior que imparte estudios universitarios"
+    },
+    {
+      "name": "uno",
+      "definition": "número que representa la cantidad de un solo elemento"
+    },
+    {
+      "name": "usar",
+      "definition": "hacer uso de algo para un determinado fin"
+    },
+    {
+      "name": "usuario",
+      "definition": "persona que utiliza un servicio o una aplicación informática"
+    },
+    {
+      "name": "usted",
+      "definition": "pronombre de segunda persona singular que se utiliza para mostrar respeto o cortesía"
+    },
+    {
+      "name": "vacío",
+      "definition": "espacio que no está ocupado por nada"
+    },
+    {
+      "name": "valor",
+      "definition": "importancia o significado de algo"
+    },
+    {
+      "name": "vapor",
+      "definition": "gas producido por la evaporación de un líquido"
+    },
+    {
+      "name": "varios",
+      "definition": "diversos o distintos en su naturaleza, especie o calidad"
+    },
+    {
+      "name": "vaso",
+      "definition": "recipiente de vidrio o de otro material utilizado para contener líquidos"
+    },
+    {
+      "name": "vecino",
+      "definition": "persona que vive en la misma zona o comunidad que otra"
+    },
+    {
+      "name": "vehículo",
+      "definition": "medio de transporte utilizado para desplazarse de un lugar a otro"
+    },
+    {
+      "name": "veinte",
+      "definition": "número que representa la cantidad de dos veces diez"
+    },
+    {
+      "name": "velocidad",
+      "definition": "rapidez o velocidad a la que se mueve algo"
+    },
+    {
+      "name": "vender",
+      "definition": "entregar algo a cambio de dinero o de otro bien o servicio"
+    },
+    {
+      "name": "veneno",
+      "definition": "sustancia tóxica que causa daño o muerte a los seres vivos"
+    },
+    {
+      "name": "venta",
+      "definition": "acción de vender o transferir la propiedad de algo a cambio de dinero"
+    },
+    {
+      "name": "ver",
+      "definition": "percibir algo a través de los ojos"
+    },
+    {
+      "name": "verano",
+      "definition": "estación del año que se caracteriza por altas temperaturas y días largos"
+    },
+    {
+      "name": "verde",
+      "definition": "color que se encuentra en la naturaleza en hojas y plantas"
+    },
+    {
+      "name": "versión",
+      "definition": "interpretación o traducción de un texto o de una obra artística"
+    },
+    {
+      "name": "vestido",
+      "definition": "prenda de vestir que cubre el cuerpo de una persona de la cintura hacia abajo"
+    },
+    {
+      "name": "vez",
+      "definition": "ocasión o momento en que ocurre algo"
+    },
+    {
+      "name": "viaje",
+      "definition": "desplazamiento de una persona o de un medio de transporte de un lugar a otro"
+    },
+    {
+      "name": "vida",
+      "definition": "periodo de tiempo que transcurre desde el nacimiento hasta la muerte de un ser vivo"
+    },
+    {
+      "name": "video",
+      "definition": "grabación de imágenes y sonido en formato digital"
+    },
+    {
+      "name": "viejo",
+      "definition": "persona o cosa que ha existido durante mucho tiempo"
+    },
+    {
+      "name": "viento",
+      "definition": "movimiento del aire que se produce por diferencias de presión atmosférica"
+    },
+    {
+      "name": "villa",
+      "definition": "pueblo pequeño o ciudad sin importancia"
+    },
+    {
+      "name": "vinagre",
+      "definition": "líquido ácido que se utiliza como condimento en la cocina"
+    },
+    {
+      "name": "vino",
+      "definition": "bebida alcohólica que se obtiene de la fermentación del zumo de uva"
+    },
+    {
+      "name": "violin",
+      "definition": "instrumento musical de cuerda frotada que se toca con un arco"
+    },
+    {
+      "name": "violencia",
+      "definition": "uso de la fuerza física para dañar o herir a alguien"
+    },
+    {
+      "name": "virgen",
+      "definition": "persona que no ha tenido relaciones sexuales"
+    },
+    {
+      "name": "virtud",
+      "definition": "cualidad positiva o buena conducta de una persona"
+    },
+    {
+      "name": "visita",
+      "definition": "acción de ir a ver a alguien o a un lugar"
+    },
+    {
+      "name": "vista",
+      "definition": "sentido que permite percibir la forma y los colores de los objetos"
+    },
+    {
+      "name": "vivir",
+      "definition": "tener vida o estar en el estado de estar vivo"
+    },
+    {
+      "name": "volar",
+      "definition": "moverse a través del aire con ayuda de las alas o de algún medio de transporte"
+    }
+  ]
