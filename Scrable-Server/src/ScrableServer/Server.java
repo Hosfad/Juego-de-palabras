@@ -88,8 +88,9 @@ public class Server {
                     String dataType = ARGS.data[i];
                     switch (dataType) {
                         case "name":
+                            String oldName = clientHandler.name;
                             clientHandler.name = ARGS.data[i + 1];
-                            sendMessageToClients(CODE, ARGS.message);
+                            sendMessageToClients(CODE, "Name changed from " + oldName + " to " + clientHandler.name);
                             break;
                         case "test":
                             sendMessageToClients(CODE, "Test successful!");
@@ -100,6 +101,7 @@ public class Server {
                 }
                 break;
             case DISCONNECT:
+                clientHandler.disconnect();
                 clientHandlers.remove(clientHandler);
                 sendMessageToClients(CODE, clientHandler + " disconnected");
                 break;

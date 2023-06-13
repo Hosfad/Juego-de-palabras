@@ -28,13 +28,14 @@ public class Client {
         Client client = new Client(scanner.nextLine(), serverName, port);
 
         System.out.println("""
+
                 Feel free to send messages to the server!
                 Use: data <arg_name> <message> to send data to the server
                 Use: help for arguments available
                 Use: exit to disconnect from the server
                 """);
 
-        while (client.isConnected()) {
+        while (!client.isClosed()) {
             String message = scanner.nextLine();
             String[] messageArgs = message.split(" ");
 
@@ -58,7 +59,7 @@ public class Client {
                             """);
                     break;
                 case "exit":
-                    client.sendMessageToServer(Code.DISCONNECT);
+                    client.disconnect();
                     break;
                 default:
                     client.sendMessageToServer(Code.MESSAGE, message);
@@ -67,7 +68,6 @@ public class Client {
         }
 
         scanner.close();
-        client.disconnect();
     }
 
     public Client(String name, String ip, int port) {
@@ -82,7 +82,7 @@ public class Client {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> disconnect()));
 
             new Thread(() -> {
-                while (clientSocket.isConnected()) {
+                while (!isClosed()) {
                     try {
                         onServerMessage(in.readUTF());
                     } catch (IOException e) {
@@ -102,6 +102,7 @@ public class Client {
 
         switch (ARGS.code) {
             case DISCONNECT:
+                System.out.println(ARGS.message);
                 break;
             case CONNECT:
                 System.out.println(ARGS.message);
@@ -130,8 +131,8 @@ public class Client {
         sendMessageToServer(code, code.toString());
     }
 
-    public boolean isConnected() {
-        return clientSocket.isConnected();
+    public boolean isClosed() {
+        return clientSocket.isClosed();
     }
 
     public void disconnect() {
