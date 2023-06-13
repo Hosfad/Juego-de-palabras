@@ -2,10 +2,10 @@ package ScrableClient.Interfaces;
 
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
-import ScrableClient.SocketClient;
 import ScrableServer.Game.Game;
-import ScrableServer.ServerResponse;
-
+import ScrableServer.ServerUtils.Code;
+import ScrableServer.Client;
+import ScrableServer.Server;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -13,7 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class MainWindow extends DreamFrame {
-
+    public Server server;
+    public Client client;
     private DreamPanel body, content;
 
     public MainWindow() {
@@ -33,55 +34,65 @@ public class MainWindow extends DreamFrame {
         content.setLayout(grid);
 
         createButton("Create Game", _e -> {
-            Container ctx = getParent();
-            String username = JOptionPane.showInputDialog(ctx, "Username");
+            String username = JOptionPane.showInputDialog(getParent(), "Username");
             if (username == null)
                 return;
-            // Create new game
-            String res = SocketClient.sendMessage("create-game," + username);
-            if (res.startsWith("OK:")) {
-                res = res.substring(3);
-                Game g = new Game(Long.parseLong(res));
-                g.addPlayer(username);
 
-                LobbyWindow lobbyWindow = new LobbyWindow(g , username);
+            server = new Server(6969).runAsync();
+            client = new Client(username, "localhost", 6969).connect();
 
-                setVisible(false);
-                lobbyWindow.setVisible(true);
-                return;
+            // TODO: No need for ID, need to remove
+            Game g = new Game(System.currentTimeMillis());
+            g.addPlayer(username);
 
-            }
-            JOptionPane.showMessageDialog(ctx, "Error: " + res);
+            LobbyWindow lobbyWindow = new LobbyWindow(g, username);
+
+            setVisible(false);
+            lobbyWindow.setVisible(true);
         });
 
         createButton("Join Game", _e -> {
-            JTextField gameId = new JTextField(), username = new JTextField();
-            String gameIdText = gameId.getText(), usernameText = username.getText();
-            Object[] message = {"Game id :", gameId, "Username :", username};
+            JTextField gameIdField = new JTextField(), usernameField = new JTextField();
+            Object[] message = { "Game id :", gameIdField, "Username :", usernameField };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
-            if (option != JOptionPane.OK_OPTION || gameIdText.isEmpty() || usernameText.isEmpty())
+            String gameIdText = gameIdField.getText(), usernameText = usernameField.getText();
+            if (option != JOptionPane.OK_OPTION || gameIdText.isEmpty() || usernameText.isEmpty()) {
                 return;
+            }
 
-            String response = SocketClient.sendMessage("join-game," + gameIdText + "," + usernameText);
-            if (response != null && response.startsWith("OK:")) {
-                // Start new game
-                Game g = new Game(Long.parseLong(response.substring(3)));
-                g.addPlayer(usernameText);
-                LobbyWindow lobbyWindow = new LobbyWindow(g,usernameText);
+            // TODO: Get the ip from generated code instead of localhost and 6969
+            // TODO: add logic for game not existing and showing error dialog
+            // TODO: add logic game started
+            // TODO: add logic name_taken
+            client = new Client(usernameText, "localhost", 6969).connect();
+
+            client.addListener(Code.JOIN, args -> {
+                System.out.println("JOIN: " + args.message);
+                Game game = new Game(System.currentTimeMillis());
+                for (int i = 0, j = 0; i < args.data.length - 1; i += 2, j++) {
+                    game.addPlayer(args.data[i]);
+                    game.players.get(j).isReady = Boolean.parseBoolean(args.data[i + 1]);
+                }
+                LobbyWindow lobbyWindow = new LobbyWindow(game, usernameText);
                 lobbyWindow.setVisible(true);
                 setVisible(false);
+            });
 
-            }
-            ServerResponse res = ServerResponse.valueOf(response.split(":")[0]);
-            switch (res) {
-                case GAME_ALREADY_STARTED -> showDialog("Game " + gameIdText + " already started");
-                case NAME_TAKEN -> showDialog("Name " + usernameText + " is already taken");
-                default -> JOptionPane.showMessageDialog(getParent(), "Error: " + response);
-            }
+            client.sendMessageToServer(Code.JOIN);
         });
 
-        createButton("Exit", _e -> System.exit(0));
+        createButton("Exit", _e -> {
+            disconnect();
+            System.exit(0);
+        });
+    }
+
+    public void disconnect() {
+        if (client != null)
+            client.disconnect();
+        if (server != null)
+            server.stop();
     }
 
     public void showDialog(String message) {

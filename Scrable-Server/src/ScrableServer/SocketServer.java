@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class SocketServer {
     private Socket socket = null;
@@ -20,7 +17,6 @@ public class SocketServer {
     private ServerSocket server = null;
 
     private DataInputStream in = null;
-
 
     public static void main(String[] args) {
 
@@ -34,24 +30,7 @@ public class SocketServer {
     public SocketServer(int port) throws IOException {
         this.server = new ServerSocket(port);
 
-        Thread gameManagerThread = new Thread(()->{
-
-            while (true){
-                List<Game> allGames = Games.all();
-                 // Handle all game logic serverside
-
-
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
         while (true) {
-
             try {
                 System.out.println("Current games size: " + Games.all().size());
                 System.out.println("Server started, waiting for client...");
@@ -69,8 +48,6 @@ public class SocketServer {
 
     }
 
-
-
     /**
      * Send a response to client
      *
@@ -79,7 +56,7 @@ public class SocketServer {
      * @see SocketServer#handleMessage() must be used before socket is closed or
      *      will throw an error
      */
-    private void respondToClient(ServerResponse status,String message) {
+    private void respondToClient(ServerResponse status, String message) {
         DataOutputStream dos = null;
         try {
             dos = new DataOutputStream(this.socket.getOutputStream());
@@ -90,15 +67,13 @@ public class SocketServer {
     }
 
     private void respondToClient(ServerResponse res) {
-       respondToClient(res,"");
+        respondToClient(res, "");
     }
-
 
     private void handleMessage() {
         (new Thread() {
             public void run() {
                 try {
-                    String partyId, userName;
                     InputStreamReader reader = new InputStreamReader(SocketServer.this.socket.getInputStream());
                     BufferedReader bufferedReader = new BufferedReader(reader);
                     String msg = bufferedReader.readLine();
@@ -129,7 +104,7 @@ public class SocketServer {
                                     return;
                                 }
 
-                                respondToClient(ServerResponse.OK ,game.toString());
+                                respondToClient(ServerResponse.OK, game.toString());
                             }
                             break;
                         case "join-game":
@@ -143,7 +118,7 @@ public class SocketServer {
                                     return;
                                 }
                                 if (game.addPlayer(msgParts[2])) {
-                                    respondToClient(ServerResponse.OK ,gameId);
+                                    respondToClient(ServerResponse.OK, gameId);
                                 } else {
                                     respondToClient(ServerResponse.NAME_TAKEN);
                                 }
@@ -193,7 +168,7 @@ public class SocketServer {
                             String hostName = msgParts[1];
                             Game g = Games.createNewGame();
                             g.addPlayer(hostName);
-                            respondToClient(ServerResponse.OK , g.id +"");
+                            respondToClient(ServerResponse.OK, g.id + "");
 
                             break;
                     }

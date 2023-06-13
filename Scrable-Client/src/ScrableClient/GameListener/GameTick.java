@@ -13,8 +13,9 @@ public class GameTick {
         status = ServerResponse.valueOf(split[0]);
         message = res.replace(split[0] + ":", "");
     }
-    public Game getGame(){
+
+    public Game getGame() {
         Gson gson = new Gson();
-        return gson.fromJson(message,Game.class);
+        return gson.fromJson(message, Game.class);
     }
 }

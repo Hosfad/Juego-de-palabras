@@ -4,7 +4,7 @@ import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
 import ScrableClient.GameListener.GameListener;
 import ScrableClient.GameListener.GameTick;
-import ScrableClient.MainClass;
+import ScrableClient.Main;
 import ScrableClient.SocketClient;
 import ScrableServer.Game.Game;
 import ScrableServer.ServerResponse;
@@ -63,13 +63,13 @@ public class GameWindow extends DreamFrame implements GameListener {
         if (event.status == ServerResponse.GAME_NOT_FOUND){
             JOptionPane.showMessageDialog(null, "Game not found");
             this.dispose();
-            MainClass.mainWindow.setVisible(true);
+            Main.mainWindow.setVisible(true);
             return;
         }
         if (event.status == ServerResponse.GAME_ENDED){
             JOptionPane.showMessageDialog(null, "Game ended");
             this.dispose();
-            MainClass.mainWindow.setVisible(true);
+            Main.mainWindow.setVisible(true);
             return;
         }
 
@@ -80,8 +80,8 @@ public class GameWindow extends DreamFrame implements GameListener {
         String res = SocketClient.sendMessage("leave-game," + getGameId() + "," + getUserId());
         this.setVisible(false);
         this.dispose();
-        MainClass.mainWindow.setVisible(true);
-        MainClass.removeListener(MainClass.getInstance(this.getClass()));
+        Main.mainWindow.setVisible(true);
+        Main.removeListener(Main.getInstance(this.getClass()));
     }
     @Override
     public String getGameId() {

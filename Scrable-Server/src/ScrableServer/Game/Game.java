@@ -16,10 +16,7 @@ public class Game {
 
     public long startTime = -1;
 
-    public String currentlyPlaying ;
-
-
-
+    public String currentlyPlaying;
 
     public Game(long id) {
         this.id = id;
@@ -27,10 +24,11 @@ public class Game {
         this.players = new ArrayList<>();
     }
 
-    public boolean hasStarted(){
+    public boolean hasStarted() {
         return startTime != -1 && System.currentTimeMillis() > startTime;
     }
-    public boolean shouldStart(){
+
+    public boolean shouldStart() {
         return players.size() >= 2 && players.stream().allMatch(i -> i.isReady);
     }
 
@@ -72,17 +70,18 @@ public class Game {
         }
         return null;
     }
-    public Player getCurrenRoundPlayer(){
+
+    public Player getCurrenRoundPlayer() {
         return getPlayer(i -> i.name.equals(currentlyPlaying));
     }
-
 
     public class Player {
         public String name;
         public int score = 0;
         public boolean isReady = false;
-        @Expose(serialize = false,deserialize = false)
+        @Expose(serialize = false, deserialize = false)
         public long lastPing;
+
         public Player(String name) {
             this.name = name;
             this.score = 0;

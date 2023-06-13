@@ -4,20 +4,28 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
-enum Code {
-    DISCONNECT,
-    CONNECT,
-    MESSAGE,
-    DATA
-}
+import ScrableServer.ServerUtils.Args;
+import ScrableServer.ServerUtils.Code;
 
 public class Client {
-    DataInputStream in;
-    DataOutputStream out;
-    Socket clientSocket;
+    public String name;
 
+    private DataInputStream in;
+    private DataOutputStream out;
+    private Socket clientSocket;
+
+    private HashMap<Code, Collection<ClientEventListener>> eventListeners = new HashMap<>();
+
+    public interface ClientEventListener {
+        void onEvent(Args args);
+    }
+
+    // Chat to test networking (Run server first)
     public static void main(String[] args) {
         String serverName = "localhost";
         int port = 6969;
@@ -71,6 +79,7 @@ public class Client {
     }
 
     public Client(String name, String ip, int port) {
+        this.name = name;
         try {
             System.out.println("Connecting to " + ip + " on port " + port);
             clientSocket = new Socket(ip, port);
@@ -79,42 +88,29 @@ public class Client {
             in = new DataInputStream(clientSocket.getInputStream());
             out = new DataOutputStream(clientSocket.getOutputStream());
 
+            // Default Events
+            addListener(Code.CONNECT, System.out::println);
+            addListener(Code.MESSAGE, System.out::println);
+            addListener(Code.DISCONNECT, System.out::println);
+            addListener(Code.DATA, msgArgs -> System.out.println("Data: " + msgArgs.data[0] + " " + msgArgs.data[1]));
+            addListener(Code.SHUTDOWN, msgArgs -> sendMessageToServer(Code.DISCONNECT, name));
+
             Runtime.getRuntime().addShutdownHook(new Thread(() -> disconnect()));
 
             new Thread(() -> {
                 while (!isClosed()) {
                     try {
-                        onServerMessage(in.readUTF());
+                        Args args = ServerUtils.parseMessage(in.readUTF());
+                        runEvents(args.code, args);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println("Error receiving message from server!");
                     }
                 }
             }).start();
-
-            sendMessageToServer(Code.CONNECT, "name", name);
+        
+            connect();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onServerMessage(String codedMessage) {
-        final Args ARGS = ServerUtils.parseMessage(codedMessage);
-
-        switch (ARGS.code) {
-            case DISCONNECT:
-                System.out.println(ARGS.message);
-                break;
-            case CONNECT:
-                System.out.println(ARGS.message);
-                break;
-            case MESSAGE:
-                System.out.println(ARGS.message);
-                break;
-            case DATA:
-                System.out.println("Data: " + ARGS.data[0] + " " + ARGS.data[1]);
-                break;
-            default:
-                break;
+            System.out.println("Error connecting to server!");
         }
     }
 
@@ -123,7 +119,7 @@ public class Client {
             out.writeUTF(code.ordinal() + " " + String.join(" ", args));
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error sending message to server!");
         }
     }
 
@@ -135,12 +131,27 @@ public class Client {
         return clientSocket.isClosed();
     }
 
+    public void addListener(Code code, ClientEventListener listener) {
+        eventListeners.computeIfAbsent(code, k -> new HashSet<>()).add(listener);
+    }
+
+    public void runEvents(Code code, Args args) {
+        Collection<ClientEventListener> listeners = eventListeners.get(code);
+        if (listeners == null) return;
+        listeners.forEach(listener -> listener.onEvent(args));
+    }
+
+    public Client connect() {
+        sendMessageToServer(Code.CONNECT, name);
+        return this;
+    }
+
     public void disconnect() {
         try {
-            sendMessageToServer(Code.DISCONNECT);
+            sendMessageToServer(Code.DISCONNECT, name);
             clientSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error disconnecting from server!");
         }
     }
 }

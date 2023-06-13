@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+import ScrableServer.ServerUtils.Code;
+
 public class ClientHandler {
     private DataOutputStream out;
     private DataInputStream in;
@@ -18,7 +20,7 @@ public class ClientHandler {
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to create client handler!");
         }
     }
 
@@ -26,7 +28,7 @@ public class ClientHandler {
         try {
             return in.readUTF();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to receive message from client!");
         }
         return null;
     }
@@ -36,7 +38,7 @@ public class ClientHandler {
             out.writeUTF(code.ordinal() + " " + String.join(" ", message));
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to send message to client!");
         }
     }
 
@@ -48,7 +50,7 @@ public class ClientHandler {
         try {
             clientSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to close client socket!");
         }
     }
 
