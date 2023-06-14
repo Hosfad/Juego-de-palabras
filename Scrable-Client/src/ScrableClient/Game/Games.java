@@ -1,4 +1,4 @@
-package ScrableServer.Game;
+package ScrableClient.Game;
 
 import java.util.ArrayList;
 import java.util.List;

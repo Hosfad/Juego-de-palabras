@@ -3,15 +3,12 @@ package ScrableClient.Interfaces;
 import ScrableClient.DreamUI.UIColours;
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
-import ScrableClient.GameListener.GameListener;
-import ScrableClient.GameListener.GameTick;
+import ScrableClient.Game.Game;
 import ScrableClient.Main;
 import ScrableClient.SocketClient;
-import ScrableServer.Game.Game;
 import ScrableServer.ServerUtils.Code;
 import ScrableServer.Client;
 import ScrableServer.Server;
-import ScrableServer.ServerResponse;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,10 +16,11 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class LobbyWindow extends DreamFrame implements GameListener {
+public class LobbyWindow extends DreamFrame {
 
     public String currentUser;
     private DreamPanel body, content;
@@ -32,11 +30,12 @@ public class LobbyWindow extends DreamFrame implements GameListener {
     private List playerList = new List();
 
     public LobbyWindow(Game game, String currentUser) {
-        super("Sala de espera", ImageUtils.resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"), 20, 20));
+        super("Sala de espera", ImageUtils
+                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"), 20, 20));
         this.currentGame = game;
         this.currentUser = currentUser;
 
-        Client mainClient = Main.mainWindow.client;
+        Client mainClient = MainWindow.instance.client;
 
         body = new DreamPanel();
         setSize(500, 600);
@@ -74,30 +73,12 @@ public class LobbyWindow extends DreamFrame implements GameListener {
         connectedUsersNum.setText(currentGame.players.size() + "");
         content.add(connectedUsersNum);
 
-        DreamButton readyButton = new DreamButton("Ready");
-        try {
-            readyButton.setIcon(new ImageIcon(
-                    ImageUtils.resize(ImageIO.read(SocketClient.class.getResource("Resources/start.png")), 20, 20)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        createButton("Ready", "start.png", e -> mainClient.sendMessageToServer(Code.PLAYER_READY, currentUser));
+        createButton("Leave Game", "stop.png", e -> onExit());
 
-        readyButton.addActionListener(e -> mainClient.sendMessageToServer(Code.PLAYER_READY, currentUser));
-        content.add(readyButton);
-
-        DreamButton leaveGame = new DreamButton("Leave Game");
-        try {
-            leaveGame.setIcon(new ImageIcon(
-                    ImageUtils.resize(ImageIO.read(SocketClient.class.getResource("Resources/stop.png")), 20, 20)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        leaveGame.addActionListener(e -> onExit());
-
-        content.add(leaveGame);
         playerList.setForeground(Color.white);
         playerList.setBackground(UIColours.BODY_COLOUR);
+
         DreamScrollPane dsp = new DreamScrollPane(playerList);
         content.add(new DreamLabel(""));
         content.add(new DreamLabel(""));
@@ -106,33 +87,33 @@ public class LobbyWindow extends DreamFrame implements GameListener {
         body.add(dsp);
 
         // Network Logic
-        update();
+        redraw();
 
         mainClient.addListener(Code.CONNECT, (args) -> {
             currentGame.addPlayer(args.data[0]);
-            update();
+            redraw();
         });
 
         mainClient.addListener(Code.DISCONNECT, (args) -> {
             currentGame.removePlayer(args.data[0]);
-            update();
+            redraw();
         });
 
         mainClient.addListener(Code.SHUTDOWN, (args) -> {
             setVisible(false);
             dispose();
-            Main.mainWindow.setVisible(true);
-            Main.mainWindow.disconnect(); 
+            MainWindow.instance.setVisible(true);
+            MainWindow.instance.disconnect();
         });
 
         mainClient.addListener(Code.PLAYER_READY, (args) -> {
             Game.Player player = currentGame.getPlayer(p -> p.name.equals(args.data[0]));
             player.isReady = !player.isReady;
-            update();
+            redraw();
         });
 
         // Server logic
-        Server server = Main.mainWindow.server;
+        Server server = MainWindow.instance.server;
 
         if (server == null)
             return;
@@ -150,7 +131,7 @@ public class LobbyWindow extends DreamFrame implements GameListener {
         });
     }
 
-    public void update() {
+    public void redraw() {
         connectedUsersNum.setText(currentGame.players.size() + "");
         playerList.removeAll();
 
@@ -160,33 +141,21 @@ public class LobbyWindow extends DreamFrame implements GameListener {
         }
     }
 
-    @Override
-    public void onGameTick(GameTick event) {
-        if (event.status.equals(ServerResponse.OK)) {
-            if (event.getGame().gameState.equals(Game.State.IN_PROGRESS)) {
-                this.setVisible(false);
-                this.dispose();
-                GameWindow gameWindow = new GameWindow(event.getGame(), currentUser);
-                gameWindow.setVisible(true);
-                return;
-            }
+    private void createButton(String text, String imageName, ActionListener action) {
+        DreamButton button = new DreamButton(text);
+        try {
+            button.setIcon(new ImageIcon(
+                    ImageUtils.resize(ImageIO.read(SocketClient.class.getResource("Resources/" + imageName)), 20, 20)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        button.addActionListener(action);
+        content.add(button);
     }
 
-    @Override
-    public String getGameId() {
-        return currentGame.id + "";
-    }
-
-    @Override
-    public String getUserId() {
-        return currentUser;
-    }
-
-    @Override
     public void onExit() {
         // Handle exit here
-        MainWindow win = Main.mainWindow;
+        MainWindow win = MainWindow.instance;
         win.disconnect();
         win.setVisible(true);
         setVisible(false);

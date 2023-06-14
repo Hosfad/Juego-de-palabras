@@ -2,7 +2,7 @@ package ScrableClient.Interfaces;
 
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
-import ScrableServer.Game.Game;
+import ScrableClient.Game.Game;
 import ScrableServer.ServerUtils.Code;
 import ScrableServer.Client;
 import ScrableServer.Server;
@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class MainWindow extends DreamFrame {
+    public static MainWindow instance = null;
+
     public Server server;
     public Client client;
     private DreamPanel body, content;
@@ -20,6 +22,12 @@ public class MainWindow extends DreamFrame {
     public MainWindow() {
         super("Juego de palabras", ImageUtils
                 .resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"), 20, 20));
+
+        if (instance == null)
+            instance = this;
+        else
+            throw new RuntimeException("Only one instance of MainWindow is allowed");
+
         setSize(500, 600);
         setLocationRelativeTo(null);
 
@@ -57,7 +65,12 @@ public class MainWindow extends DreamFrame {
 
             int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
             String gameIdText = gameIdField.getText(), usernameText = usernameField.getText();
-            if (option != JOptionPane.OK_OPTION || gameIdText.isEmpty() || usernameText.isEmpty()) {
+
+            if (option != JOptionPane.OK_OPTION)
+                return;
+
+            if (gameIdText.isEmpty() || usernameText.isEmpty()) {
+                showDialog("Please fill all the fields");
                 return;
             }
 

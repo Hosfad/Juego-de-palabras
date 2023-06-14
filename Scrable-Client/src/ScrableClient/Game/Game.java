@@ -1,4 +1,4 @@
-package ScrableServer.Game;
+package ScrableClient.Game;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
