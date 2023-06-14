@@ -5,7 +5,6 @@ import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
 import ScrableClient.Game.Game;
 import ScrableClient.Main;
-import ScrableClient.SocketClient;
 import ScrableServer.ServerUtils.Code;
 import ScrableServer.Client;
 import ScrableServer.Server;
@@ -155,7 +154,7 @@ public class LobbyWindow extends DreamFrame {
         DreamButton button = new DreamButton(text);
         try {
             button.setIcon(new ImageIcon(
-                    ImageUtils.resize(ImageIO.read(SocketClient.class.getResource("Resources/" + imageName)), 20, 20)));
+                    ImageUtils.resize(ImageIO.read(Main.class.getResource("Resources/" + imageName)), 20, 20)));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
