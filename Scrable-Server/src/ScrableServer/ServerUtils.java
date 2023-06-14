@@ -8,7 +8,7 @@ public class ServerUtils {
         SHUTDOWN,
         DATA,
         PLAYER_READY,
-        JOIN,
+        JOIN, START_GAME,
     }
 
     public static class Args {

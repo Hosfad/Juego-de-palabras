@@ -109,7 +109,17 @@ public class LobbyWindow extends DreamFrame {
         mainClient.addListener(Code.PLAYER_READY, (args) -> {
             Game.Player player = currentGame.getPlayer(p -> p.name.equals(args.data[0]));
             player.isReady = !player.isReady;
+            if(currentGame.shouldStart() && MainWindow.instance.server != null) {
+                MainWindow.instance.server.sendMessageToClients(Code.START_GAME); 
+            }
             redraw();
+        });
+
+        mainClient.addListener(Code.START_GAME, (args) -> {
+            setVisible(false);
+            dispose();
+            GameWindow gameWindow = new GameWindow(currentGame, currentUser);
+            gameWindow.setVisible(true);
         });
 
         // Server logic
@@ -154,7 +164,6 @@ public class LobbyWindow extends DreamFrame {
     }
 
     public void onExit() {
-        // Handle exit here
         MainWindow win = MainWindow.instance;
         win.disconnect();
         win.setVisible(true);

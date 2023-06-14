@@ -50,10 +50,10 @@ public class MainWindow extends DreamFrame {
             client = new Client(username, "localhost", 6969).connect();
 
             // TODO: No need for ID, need to remove
-            Game g = new Game(System.currentTimeMillis());
-            g.addPlayer(username);
+            Game game = new Game(System.currentTimeMillis());
+            game.addPlayer(username);
 
-            LobbyWindow lobbyWindow = new LobbyWindow(g, username);
+            LobbyWindow lobbyWindow = new LobbyWindow(game, username);
 
             setVisible(false);
             lobbyWindow.setVisible(true);
