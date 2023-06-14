@@ -3,16 +3,12 @@ package ScrableClient.Interfaces;
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
 import ScrableClient.Game.Game;
-import ScrableClient.Main;
-import ScrableClient.SocketClient;
 import com.google.gson.Gson;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 public class GameWindow extends DreamFrame {

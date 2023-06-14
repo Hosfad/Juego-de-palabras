@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class Game {
-    public long id;
+    public String id;
     public State gameState;
 
     public List<Player> players;
@@ -18,7 +18,7 @@ public class Game {
 
     public String currentlyPlaying;
 
-    public Game(long id) {
+    public Game(String id) {
         this.id = id;
         this.gameState = State.WAITING_FOR_PLAYERS;
         this.players = new ArrayList<>();

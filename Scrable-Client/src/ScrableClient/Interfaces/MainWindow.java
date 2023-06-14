@@ -45,12 +45,12 @@ public class MainWindow extends DreamFrame {
             String username = JOptionPane.showInputDialog(getParent(), "Username");
             if (username == null)
                 return;
+            
+            int port = (int)(Math.random() * 65535);
+            server = new Server(port).runAsync();
+            client = new Client(username, "localhost", port).connect();
 
-            server = new Server(6969).runAsync();
-            client = new Client(username, "localhost", 6969).connect();
-
-            // TODO: No need for ID, need to remove
-            Game game = new Game(System.currentTimeMillis());
+            Game game = new Game(server.getIp());
             game.addPlayer(username);
 
             LobbyWindow lobbyWindow = new LobbyWindow(game, username);
@@ -74,15 +74,13 @@ public class MainWindow extends DreamFrame {
                 return;
             }
 
-            // TODO: Get the ip from generated code instead of localhost and 6969
-            // TODO: add logic for game not existing and showing error dialog
-            // TODO: add logic game started
-            // TODO: add logic name_taken
-            client = new Client(usernameText, "localhost", 6969).connect();
+            // TODO: Handle wrong ip error
+            String[] serverIp = gameIdText.split(":");
+            client = new Client(usernameText, serverIp[0], Integer.parseInt(serverIp[1])).connect();
 
             client.addListener(Code.JOIN, args -> {
                 System.out.println("JOIN: " + args.message);
-                Game game = new Game(System.currentTimeMillis());
+                Game game = new Game(gameIdText);
                 for (int i = 0, j = 0; i < args.data.length - 1; i += 2, j++) {
                     game.addPlayer(args.data[i]);
                     game.players.get(j).isReady = Boolean.parseBoolean(args.data[i + 1]);
@@ -93,6 +91,10 @@ public class MainWindow extends DreamFrame {
             });
 
             client.sendMessageToServer(Code.JOIN);
+
+            // TODO: add logic for game not existing and showing error dialog
+            // TODO: add logic game started
+            // TODO: add logic name_taken
         });
 
         createButton("Exit", _e -> {

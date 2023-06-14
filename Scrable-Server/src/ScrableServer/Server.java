@@ -27,7 +27,7 @@ public class Server implements Runnable {
     public Server(int port) {
         try {
             this.serverSocket = new ServerSocket(port);
-            System.out.println("Server started on " + InetAddress.getLocalHost().getHostAddress() + ":" + port);
+            System.out.println("Server started on " + getIp());
         } catch (IOException e) {
             System.out.println("Failed to start server!");
         }
@@ -75,6 +75,14 @@ public class Server implements Runnable {
                 break;
         }
         runEvents(CODE, args);
+    }
+
+    public String getIp() {
+        try {
+            return InetAddress.getLocalHost().getHostAddress() + ":" + serverSocket.getLocalPort();
+        } catch (Exception e) {
+            return "localhost";
+        }
     }
 
     public void addListener(Code code, ClientEventListener listener) {
