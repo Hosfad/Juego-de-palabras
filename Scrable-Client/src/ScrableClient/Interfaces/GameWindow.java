@@ -56,7 +56,7 @@ public class GameWindow extends DreamFrame {
 		game.assignWords();
 		difinition.setForeground(Color.white);
 		difinition.setMaximumSize(new Dimension(300, 50));
-		difinition.setText("Difinicion : " + game.getPlayer(p -> p.name.equals(currentUserId)).getWord('a').definition);
+		difinition.setText("<html><body style='width: 200px'>" + "Difinicion : " + game.getPlayer(p -> p.name.equals(currentUserId)).getWord('a').definition + "</body></html>");
 
 		remainingTime.setForeground(Color.white);
 
@@ -82,7 +82,8 @@ public class GameWindow extends DreamFrame {
 				char selectedChar = ((DreamButton) e.getSource()).getText().charAt(0);
 				selectedLetter.setText("Letra selecionada : " + selectedChar);
 				selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord(selectedChar);
-				difinition.setText("Difinicion : " + selectedWord.definition);
+				difinition.setText("<html><body style='width: 200px'>" + "Difinicion : " + selectedWord.definition + "</body></html>");
+
 
 			});
 			buttonPanel.add(buttons[i]);
