@@ -158,7 +158,7 @@ public class LobbyWindow extends DreamFrame {
         playerList.removeAll();
 
         for (Game.Player player : currentGame.players) {
-            String ready = player.isReady ? "(Ready)" : "";
+            String ready = player.isReady ? "(Listo)" : "";
             playerList.add(player.name + ": " + ready);
         }
     }
