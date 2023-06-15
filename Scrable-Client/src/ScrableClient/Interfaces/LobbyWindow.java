@@ -109,7 +109,7 @@ public class LobbyWindow extends DreamFrame {
             Game.Player player = currentGame.getPlayer(p -> p.name.equals(args.data[0]));
             player.isReady = !player.isReady;
             if(currentGame.shouldStart() && MainWindow.instance.server != null) {
-                MainWindow.instance.server.sendMessageToClients(Code.START_GAME); 
+                MainWindow.instance.server.sendMessageToClients(Code.START_GAME,System.currentTimeMillis()+ "" );
             }
             redraw();
         });
@@ -117,6 +117,8 @@ public class LobbyWindow extends DreamFrame {
         mainClient.addListener(Code.START_GAME, (args) -> {
             setVisible(false);
             dispose();
+            currentGame.startTime = Long.parseLong(args.data[0]);
+            System.out.println("Start time: " + currentGame.startTime);
             GameWindow gameWindow = new GameWindow(currentGame, currentUser);
             gameWindow.setVisible(true);
         });
@@ -126,7 +128,6 @@ public class LobbyWindow extends DreamFrame {
 
         if (server == null)
             return;
-
         server.addListener(Code.JOIN, (args) -> {
             StringBuilder builder = new StringBuilder();
             for (Game.Player player : currentGame.players) {

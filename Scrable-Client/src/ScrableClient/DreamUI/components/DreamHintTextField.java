@@ -21,6 +21,9 @@ public class DreamHintTextField extends DreamTextField {
         this.hint = hint;
         this.image = (BufferedImage) image;
     }
+public void setHint(String hint){
+        this.hint = hint;
+}
 
 
     @Override

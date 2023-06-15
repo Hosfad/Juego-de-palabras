@@ -1,8 +1,9 @@
 package ScrableClient.Game;
 
+import ScrableServer.Words.Word;
+import ScrableServer.Words.Words;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,30 @@ public class Game {
 
     public long startTime = -1;
 
-    public String currentlyPlaying;
+
 
     public Game(String id) {
         this.id = id;
         this.gameState = State.WAITING_FOR_PLAYERS;
         this.players = new ArrayList<>();
+    }
+
+    public void assignWords(){
+        for (Player p : players){
+            for (int i = 0; i < 26; i++){
+                char c = (char) (65 + i);
+                Word w = Words.getRandomWord(c);
+                p.words.add(w);
+            }
+        }
+    }
+    public List<Word> getPlayerWords(String name){
+        for (Player p : players){
+            if (p.name.equals(name)){
+                return p.words;
+            }
+        }
+        return null;
     }
 
     public boolean hasStarted() {
@@ -71,23 +90,24 @@ public class Game {
         return null;
     }
 
-    public Player getCurrenRoundPlayer() {
-        return getPlayer(i -> i.name.equals(currentlyPlaying));
-    }
 
     public class Player {
         public String name;
-        public int score = 0;
         public boolean isReady = false;
-        @Expose(serialize = false, deserialize = false)
-        public long lastPing;
+        List<Word> words = new ArrayList<>();
 
         public Player(String name) {
             this.name = name;
-            this.score = 0;
-            this.lastPing = System.currentTimeMillis();
         }
 
+        public Word getWord(char c){
+            for (Word w : words){
+                if (w.name.toLowerCase().startsWith(String.valueOf(c).toLowerCase())){
+                    return w;
+                }
+            }
+            return null;
+        }
         @Override
         public String toString() {
             Gson g = new GsonBuilder().create();
@@ -97,9 +117,14 @@ public class Game {
     }
 
     public enum State {
-        WAITING_FOR_PLAYERS,
-        IN_PROGRESS,
-        FINISHED
+        WAITING_FOR_PLAYERS("Esperando jugadores"),
+        IN_PROGRESS(""),
+        FINISHED("");
+        String name;
+
+        State(String name){
+            this.name = name;
+        }
     }
 
     @Override
