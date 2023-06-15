@@ -24,7 +24,7 @@ public class GameWindow extends DreamFrame {
 	private DreamPanel body, content;
 	public String currentUserId;
 	public JLabel selectedLetter = new JLabel();
-	public JLabel difinition = new JLabel("Difinicion : ");
+	public JLabel definition = new JLabel("Definicion : ");
 	public Word selectedWord;
 	private List playerList = new List();
 	private Game currentGame;
@@ -65,7 +65,7 @@ public class GameWindow extends DreamFrame {
 	// Calculate the remaining time in milliseconds
 	public GameWindow(Game game, String currentUserId) {
 		super("Juego de palabras", ImageUtils.resize(
-				(BufferedImage) Objects.requireNonNull(ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png")),
+				(BufferedImage) Objects.requireNonNull(ImageUtils.getImageFromUrl("https://mir-s3-cdn-cf.behance.net/projects/404/bbf0ae95440691.Y3JvcCwxMTUwLDkwMCwyMjUsMA.jpg")),
 				20, 20));
 		futureTimeMillis = game.startTime + TimeUnit.MINUTES.toMillis(26);
 		this.currentUserId = currentUserId;
@@ -77,15 +77,15 @@ public class GameWindow extends DreamFrame {
 
 		game.assignWords();
 
-		difinition.setForeground(Color.white);
-		difinition.setMaximumSize(new Dimension(300, 50));
-		difinition.setText("<html><body style='width: 250px'>" + "Difinicion : " + game.getPlayer(p -> p.name.equals(currentUserId)).getWord('a').definition + "</body></html>");
+		definition.setForeground(Color.white);
+		definition.setMaximumSize(new Dimension(300, 50));
+		definition.setText("<html><body style='width: 250px'>" + "Definicion : " + game.getPlayer(p -> p.name.equals(currentUserId)).getWord('a').definition + "</body></html>");
 
 		remainingTime.setForeground(Color.white);
 
 		selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord('A');
 		body = new DreamPanel();
-		setSize(500, 600);
+		setSize(750, 600);
 		setLocationRelativeTo(null);
 		add(body, BorderLayout.CENTER);
 		body.setBorder(new EmptyBorder(7, 8, 7, 8));
@@ -104,7 +104,7 @@ public class GameWindow extends DreamFrame {
 				char selectedChar = ((DreamButton) e.getSource()).getText().charAt(0);
 				selectedLetter.setText("Letra selecionada : " + selectedChar);
 				selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord(selectedChar);
-				difinition.setText("<html><body style='width: 250px'>" + "Definicion : " + selectedWord.definition + "</body></html>");
+				definition.setText("<html><body style='width: 250px'>" + "Definicion : " + selectedWord.definition + "</body></html>");
 			});
 			buttonPanel.add(buttons[i]);
 		}
@@ -115,7 +115,7 @@ public class GameWindow extends DreamFrame {
 		content.add(new DreamLabel("⠀"));
 		content.add(new DreamLabel("Elige la palabra correspondiente"));
 		content.add(new DreamLabel("⠀"));
-		content.add(difinition);
+		content.add(definition);
 
 		DreamPanel currentWordPanel = new DreamPanel();
 		currentWordPanel.setBackground(UIColours.BODY_COLOUR);
@@ -136,6 +136,7 @@ public class GameWindow extends DreamFrame {
 
 		DreamButton submitWord = new DreamButton("Enviar palabra");
 		submitWord.addActionListener(e -> {
+			if (userSelectedWord.getText().isEmpty()) return;
 			guesses++;
 			String word = selectedWord.name;
 			String selectedWord = userSelectedWord.getText();
@@ -144,6 +145,7 @@ public class GameWindow extends DreamFrame {
 				DreamButton dreamButton = buttons[i];
 				if (dreamButton.getText().equalsIgnoreCase(word.charAt(0) + "")) {
 					dreamButton.setEnabled(false);
+					dreamButton.setText("");
 					if (guesses < buttons.length) {
 						int j = (i + 1) % buttons.length;
 						while (!buttons[j].isEnabled())
@@ -151,7 +153,7 @@ public class GameWindow extends DreamFrame {
 						buttons[j].doClick();
 						mainClient.sendMessageToServer(Code.WORD_GUESS, currentUserId, word, selectedWord);
 					} else {
-						JOptionPane.showMessageDialog(null, "El juego ha terminado espera por tus rivales!");
+						JOptionPane.showMessageDialog(null, "¡El juego ha terminado espera por tus rivales!");
 						endGame();
 					}
 					break;

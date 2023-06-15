@@ -966,6 +966,374 @@
   {
     "name": "zafiro",
     "definition": "gema preciosa de color azul"
+  },
+  {
+    "name": "abeja",
+    "definition": "insecto volador que produce miel"
+  },
+  {
+    "name": "balón",
+    "definition": "esfera utilizada en diversos deportes"
+  },
+  {
+    "name": "casa",
+    "definition": "edificación donde se vive"
+  },
+  {
+    "name": "dulce",
+    "definition": "que tiene sabor parecido al azúcar o la miel"
+  },
+  {
+    "name": "elefante",
+    "definition": "animal mamífero de gran tamaño con trompa"
+  },
+  {
+    "name": "fresa",
+    "definition": "fruto rojo y pequeño de sabor dulce"
+  },
+  {
+    "name": "gato",
+    "definition": "animal felino doméstico"
+  },
+  {
+    "name": "helado",
+    "definition": "postre frío y cremoso"
+  },
+  {
+    "name": "isla",
+    "definition": "porción de tierra rodeada de agua"
+  },
+  {
+    "name": "jabón",
+    "definition": "producto para lavar y limpiar"
+  },
+  {
+    "name": "koala",
+    "definition": "mamífero marsupial arbóreo"
+  },
+  {
+    "name": "lápiz",
+    "definition": "instrumento de escritura"
+  },
+  {
+    "name": "manzana",
+    "definition": "fruta de piel lisa y pulpa blanca o roja"
+  },
+  {
+    "name": "nube",
+    "definition": "masa de vapor de agua en el cielo"
+  },
+  {
+    "name": "oso",
+    "definition": "animal mamífero carnívoro"
+  },
+  {
+    "name": "perro",
+    "definition": "animal mamífero doméstico"
+  },
+  {
+    "name": "queso",
+    "definition": "producto lácteo sólido"
+  },
+  {
+    "name": "ratón",
+    "definition": "pequeño roedor"
+  },
+  {
+    "name": "sol",
+    "definition": "estrella que ilumina y calienta la Tierra"
+  },
+  {
+    "name": "tigre",
+    "definition": "animal felino de gran tamaño"
+  },
+  {
+    "name": "uva",
+    "definition": "fruto de la vid"
+  },
+  {
+    "name": "vaca",
+    "definition": "animal bovino doméstico"
+  },
+  {
+    "name": "zapato",
+    "definition": "calzado que cubre el pie"
+  },
+  {
+    "name": "árbol",
+    "definition": "planta perenne de tronco leñoso"
+  },
+  {
+    "name": "búho",
+    "definition": "ave rapaz nocturna"
+  },
+  {
+    "name": "césped",
+    "definition": "hierba corta utilizada para cubrir suelos"
+  },
+  {
+    "name": "delfín",
+    "definition": "mamífero marino inteligente"
+  },
+  {
+    "name": "estrella",
+    "definition": "cuerpo celeste luminoso en el espacio"
+  },
+  {
+    "name": "flor",
+    "definition": "órgano reproductor de las plantas"
+  },
+  {
+    "name": "guitarra",
+    "definition": "instrumento musical de cuerda"
+  },
+  {
+    "name": "hormiga",
+    "definition": "insecto social y trabajador"
+  },
+  {
+    "name": "isla",
+    "definition": "porción de tierra rodeada de agua"
+  },
+  {
+    "name": "jirafa",
+    "definition": "animal de cuello largo y patas largas"
+  },
+  {
+    "name": "koala",
+    "definition": "mamífero marsupial arbóreo"
+  },
+  {
+    "name": "luna",
+    "definition": "satélite natural de la Tierra"
+  },
+  {
+    "name": "mariposa",
+    "definition": "insecto volador de colores vivos"
+  },
+  {
+    "name": "nube",
+    "definition": "masa de vapor de agua en el cielo"
+  },
+  {
+    "name": "orquídea",
+    "definition": "planta de flores hermosas y exóticas"
+  },
+  {
+    "name": "pájaro",
+    "definition": "ave pequeña y voladora"
+  },
+  {
+    "name": "queso",
+    "definition": "producto lácteo sólido"
+  },
+  {
+    "name": "rana",
+    "definition": "anfibio saltador de cuerpo suave"
+  },
+  {
+    "name": "sol",
+    "definition": "estrella que ilumina y calienta la Tierra"
+  },
+  {
+    "name": "tortuga",
+    "definition": "reptil de cuerpo cubierto por un caparazón"
+  },
+  {
+    "name": "unicornio",
+    "definition": "criatura mítica con un solo cuerno"
+  },
+  {
+    "name": "viento",
+    "definition": "movimiento del aire"
+  },
+  {
+    "name": "zanahoria",
+    "definition": "raíz comestible de color naranja"
+  },
+  {
+    "name": "águila",
+    "definition": "ave rapaz de gran tamaño"
+  },
+  {
+    "name": "bailarina",
+    "definition": "mujer que baila como profesión o afición"
+  },
+  {
+    "name": "cocodrilo",
+    "definition": "reptil de gran tamaño con mandíbulas fuertes"
+  },
+  {
+    "name": "diamante",
+    "definition": "gema preciosa transparente y brillante"
+  },
+  {
+    "name": "elefante",
+    "definition": "animal mamífero de gran tamaño con trompa"
+  },
+  {
+    "name": "flauta",
+    "definition": "instrumento musical de viento"
+  },
+  {
+    "name": "girasol",
+    "definition": "planta con flores amarillas que siguen al sol"
+  },
+  {
+    "name": "hormiga",
+    "definition": "insecto social y trabajador"
+  },
+  {
+    "name": "iglesia",
+    "definition": "edificio religioso para la adoración"
+  },
+  {
+    "name": "jaguar",
+    "definition": "felino de gran tamaño con manchas oscuras"
+  },
+  {
+    "name": "kiwi",
+    "definition": "fruta pequeña de pulpa verde y sabor ácido"
+  },
+  {
+    "name": "león",
+    "definition": "animal carnívoro de la familia de los felinos"
+  },
+  {
+    "name": "mariposa",
+    "definition": "insecto volador de colores vivos"
+  },
+  {
+    "name": "nido",
+    "definition": "estructura construida por aves para poner huevos"
+  },
+  {
+    "name": "orquídea",
+    "definition": "planta de flores hermosas y exóticas"
+  },
+  {
+    "name": "piano",
+    "definition": "instrumento musical de teclado"
+  },
+  {
+    "name": "queso",
+    "definition": "producto lácteo sólido"
+  },
+  {
+    "name": "rana",
+    "definition": "anfibio saltador de cuerpo suave"
+  },
+  {
+    "name": "saxofón",
+    "definition": "instrumento musical de viento"
+  },
+  {
+    "name": "tortuga",
+    "definition": "reptil de cuerpo cubierto por un caparazón"
+  },
+  {
+    "name": "unicornio",
+    "definition": "criatura mítica con un solo cuerno"
+  },
+  {
+    "name": "volcán",
+    "definition": "abertura en la Tierra por donde sale lava"
+  },
+  {
+    "name": "zanahoria",
+    "definition": "raíz comestible de color naranja"
+  },
+  {
+    "name": "álbum",
+    "definition": "libro para coleccionar fotografías"
+  },
+  {
+    "name": "bicicleta",
+    "definition": "vehículo de dos ruedas que se impulsa pedaleando"
+  },
+  {
+    "name": "caracol",
+    "definition": "molusco terrestre con concha en forma de espiral"
+  },
+  {
+    "name": "delfín",
+    "definition": "mamífero marino inteligente"
+  },
+  {
+    "name": "espada",
+    "definition": "arma blanca larga y afilada"
+  },
+  {
+    "name": "flor",
+    "definition": "órgano reproductor de las plantas"
+  },
+  {
+    "name": "globo",
+    "definition": "esfera de material inflable y ligero"
+  },
+  {
+    "name": "herramienta",
+    "definition": "instrumento útil para realizar tareas"
+  },
+  {
+    "name": "iglú",
+    "definition": "vivienda de hielo utilizada en zonas frías"
+  },
+  {
+    "name": "jazmín",
+    "definition": "planta trepadora de flores fragantes"
+  },
+  {
+    "name": "koala",
+    "definition": "mamífero marsupial arbóreo"
+  },
+  {
+    "name": "linterna",
+    "definition": "dispositivo portátil que produce luz"
+  },
+  {
+    "name": "manzana",
+    "definition": "fruta de piel lisa y pulpa blanca o roja"
+  },
+  {
+    "name": "nube",
+    "definition": "masa de vapor de agua en el cielo"
+  },
+  {
+    "name": "orquídea",
+    "definition": "planta de flores hermosas y exóticas"
+  },
+  {
+    "name": "pintura",
+    "definition": "arte de aplicar colores sobre una superficie"
+  },
+  {
+    "name": "queso",
+    "definition": "producto lácteo sólido"
+  },
+  {
+    "name": "ratón",
+    "definition": "pequeño roedor"
+  },
+  {
+    "name": "sombrero",
+    "definition": "accesorio para cubrir la cabeza"
+  },
+  {
+    "name": "tigre",
+    "definition": "animal felino de gran tamaño"
+  },
+  {
+    "name": "unicornio",
+    "definition": "criatura mítica con un solo cuerno"
+  },
+  {
+    "name": "viento",
+    "definition": "movimiento del aire"
+  },
+  {
+    "name": "zoológico",
+    "definition": "lugar donde se exhiben animales"
   }
 ]
 }
