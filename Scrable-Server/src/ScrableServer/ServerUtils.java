@@ -10,7 +10,7 @@ public class ServerUtils {
         PLAYER_READY,
         JOIN,
         START_GAME,
-        WORD_GUESS
+        WORD_GUESS, WINNER
     }
 
     public static class Args {

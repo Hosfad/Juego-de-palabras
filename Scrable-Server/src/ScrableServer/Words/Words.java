@@ -36,7 +36,6 @@ public class Words {
     public static List<Word> all(Predicate<Word> filter){
         List<Word> words = new ArrayList<>();
         for (Word word : all()) {
-            System.out.println(word.name);
             if (filter.test(word)) {
                 words.add(word);
             }

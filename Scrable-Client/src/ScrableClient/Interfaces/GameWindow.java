@@ -4,13 +4,16 @@ import ScrableClient.DreamUI.UIColours;
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
 import ScrableClient.Game.Game;
-import ScrableServer.ServerUtils;
+import ScrableServer.Client;
+import ScrableServer.Server;
+import ScrableServer.ServerUtils.Code;
 import ScrableServer.Words.Word;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -22,14 +25,18 @@ public class GameWindow extends DreamFrame {
 	public JLabel difinition = new JLabel("Difinicion : ");
 	public Word selectedWord;
 	private List playerList = new List();
+	private Game currentGame;
+	private int guesses = 0;
 	long futureTimeMillis;
+
+	Server server = MainWindow.instance.server;
+	Client mainClient = MainWindow.instance.client;
 
 	public JLabel remainingTime = new JLabel("Tiempo restante : 26:00");
 
 	Thread timeThread = new Thread(() -> {
-		while (true) {
-
-			long remainingTimeMillis = futureTimeMillis - System.currentTimeMillis();
+		long remainingTimeMillis;
+		while ((remainingTimeMillis = futureTimeMillis - System.currentTimeMillis()) > 0) {
 			long remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingTimeMillis);
 			long remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingTimeMillis) % 60;
 
@@ -41,17 +48,33 @@ public class GameWindow extends DreamFrame {
 				throw new RuntimeException(e);
 			}
 		}
+		endGame();
 	});
+
+	public void endGame() {
+		if (server != null) {
+			currentGame.players.sort(Comparator.comparingInt(p -> p.score));
+			server.sendMessageToClients(Code.WINNER, currentGame.players.get(currentGame.players.size() - 1).name);
+		} else {
+			mainClient.sendMessageToServer(Code.WINNER, currentUserId);
+		}
+	}
 
 	// Calculate the remaining time in milliseconds
 	public GameWindow(Game game, String currentUserId) {
-		super("Juego de palabras", ImageUtils
-				.resize((BufferedImage) Objects
-						.requireNonNull(ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png")), 20, 20));
+		super("Juego de palabras", ImageUtils.resize(
+				(BufferedImage) Objects.requireNonNull(ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png")),
+				20, 20));
 		futureTimeMillis = game.startTime + TimeUnit.MINUTES.toMillis(26);
+		this.currentUserId = currentUserId;
+		this.currentGame = game;
 
-		System.out.println("Construct " + game.startTime);
+		for (Game.Player player : game.players) {
+			player.isReady = false;
+		}
+
 		game.assignWords();
+
 		difinition.setForeground(Color.white);
 		difinition.setMaximumSize(new Dimension(300, 50));
 		difinition.setText("<html><body style='width: 250px'>" + "Difinicion : " + game.getPlayer(p -> p.name.equals(currentUserId)).getWord('a').definition + "</body></html>");
@@ -60,7 +83,6 @@ public class GameWindow extends DreamFrame {
 
 		selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord('A');
 		body = new DreamPanel();
-		this.currentUserId = currentUserId;
 		setSize(500, 600);
 		setLocationRelativeTo(null);
 		add(body, BorderLayout.CENTER);
@@ -80,7 +102,7 @@ public class GameWindow extends DreamFrame {
 				char selectedChar = ((DreamButton) e.getSource()).getText().charAt(0);
 				selectedLetter.setText("Letra selecionada : " + selectedChar);
 				selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord(selectedChar);
-				difinition.setText("<html><body style='width: 250px'>" + "Difinicion : " + selectedWord.definition + "</body></html>");
+				difinition.setText("<html><body style='width: 250px'>" + "Definicion : " + selectedWord.definition + "</body></html>");
 			});
 			buttonPanel.add(buttons[i]);
 		}
@@ -95,7 +117,6 @@ public class GameWindow extends DreamFrame {
 
 		DreamPanel currentWordPanel = new DreamPanel();
 		currentWordPanel.setBackground(UIColours.BODY_COLOUR);
-
 		currentWordPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 		selectedLetter.setText("Palabra actual: A");
@@ -113,11 +134,27 @@ public class GameWindow extends DreamFrame {
 
 		DreamButton submitWord = new DreamButton("Enviar palabra");
 		submitWord.addActionListener(e -> {
-			// Enviar respuesta al servedor
+			guesses++;
 			String word = selectedWord.name;
 			String selectedWord = userSelectedWord.getText();
-			MainWindow.instance.client.sendMessageToServer(ServerUtils.Code.WORD_GUESS, currentUserId, word,
-					selectedWord);
+			userSelectedWord.setText("");
+			for (int i = 0; i < buttons.length; i++) {
+				DreamButton dreamButton = buttons[i];
+				if (dreamButton.getText().equalsIgnoreCase(word.charAt(0) + "")) {
+					dreamButton.setEnabled(false);
+					if (guesses < buttons.length) {
+						int j = (i + 1) % buttons.length;
+						while (!buttons[j].isEnabled())
+							j = (j + 1) % buttons.length;
+						buttons[j].doClick();
+						mainClient.sendMessageToServer(Code.WORD_GUESS, currentUserId, word, selectedWord);
+					} else {
+						JOptionPane.showMessageDialog(null, "El juego ha terminado espera por tus rivales!");
+						endGame();
+					}
+					break;
+				}
+			}
 		});
 
 		content.add(submitWord);
@@ -131,18 +168,62 @@ public class GameWindow extends DreamFrame {
 		DreamScrollPane dsp = new DreamScrollPane(playerList);
 		content.add(dsp, BorderLayout.SOUTH);
 		timeThread.start();
+
+		addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				MainWindow.instance.disconnect();
+			}
+		});
+
+		redraw();
+
+		// Network Logic
+		mainClient.addListener(Code.WORD_GUESS, args -> {
+			Game.Player player = game.getPlayer(p -> p.name.equals(args.data[0]));
+			player.score += Boolean.parseBoolean(args.data[1]) ? 1 : 0;
+			redraw();
+		});
+
+		mainClient.addListener(Code.WINNER, args -> {
+			StringBuilder sb = new StringBuilder();
+			for (Game.Player player : currentGame.players) {
+				sb.append(player.name).append(": ").append(player.score).append("\n");
+			}
+			String scoreboard = sb.toString();
+			if (args.data[0].equals(currentUserId)) {
+				JOptionPane.showMessageDialog(null, "Ganaste!\n\n" + scoreboard);
+			} else {
+				JOptionPane.showMessageDialog(null, currentUserId + " es el ganador!\n\n" + scoreboard);
+			}
+			setVisible(false);
+			dispose();
+			MainWindow.instance.disconnect();
+			MainWindow.instance.setVisible(true);
+		});
+
+		if (server == null)
+			return;
+
+		server.addListener(Code.WINNER, args -> {
+			currentGame.getPlayer(p -> p.name.equals(args.data[0])).isReady = true;
+			if (currentGame.shouldStart())
+				endGame();
+		});
+		server.addListener(Code.WORD_GUESS, args -> {
+			String userId = args.data[0];
+			String actualWord = args.data[1];
+			String userWord = args.data[2];
+			server.sendMessageToClients(Code.WORD_GUESS, userId, actualWord.equalsIgnoreCase(userWord) + "");
+		});
 	}
 
-	public static void main(String[] args) {
-		new GameWindow(new Game("asd"), "").setVisible(true);
+	public void redraw() {
+		playerList.removeAll();
+
+		for (Game.Player player : currentGame.players) {
+			playerList.add(player.name + ": " + player.score);
+		}
 	}
 
-
-	public void onExit() {
-		MainWindow win = MainWindow.instance;
-		win.disconnect();
-		win.setVisible(true);
-		setVisible(false);
-		dispose();
-	}
 }
