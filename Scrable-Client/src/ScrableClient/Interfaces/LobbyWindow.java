@@ -22,8 +22,8 @@ import java.io.IOException;
 public class LobbyWindow extends DreamFrame {
 
     public String currentUser;
+    public Game currentGame;
     private DreamPanel body, content;
-    private Game currentGame;
 
     private DreamLabel connectedUsersNum = new DreamLabel("0");
     private List playerList = new List();
@@ -88,11 +88,6 @@ public class LobbyWindow extends DreamFrame {
         // Network Logic
         redraw();
 
-        mainClient.addListener(Code.CONNECT, (args) -> {
-            currentGame.addPlayer(args.data[0]);
-            redraw();
-        });
-
         mainClient.addListener(Code.DISCONNECT, (args) -> {
             currentGame.removePlayer(args.data[0]);
             redraw();
@@ -108,8 +103,8 @@ public class LobbyWindow extends DreamFrame {
         mainClient.addListener(Code.PLAYER_READY, (args) -> {
             Game.Player player = currentGame.getPlayer(p -> p.name.equals(args.data[0]));
             player.isReady = !player.isReady;
-            if(currentGame.shouldStart() && MainWindow.instance.server != null) {
-                MainWindow.instance.server.sendMessageToClients(Code.START_GAME); 
+            if (currentGame.shouldStart() && MainWindow.instance.server != null) {
+                MainWindow.instance.server.sendMessageToClients(Code.START_GAME);
             }
             redraw();
         });
@@ -128,15 +123,33 @@ public class LobbyWindow extends DreamFrame {
             return;
 
         server.addListener(Code.JOIN, (args) -> {
+            String user = args.data[0];
+            if (currentGame.gameState == Game.State.IN_PROGRESS) {
+                server.sendMessageToClients(Code.JOIN, "game_in_progress");
+                return;
+            } else if (currentGame.hasPlayer(user)) {
+                server.sendMessageToClients(Code.JOIN, "name_taken");
+                return;
+            }
+
+            currentGame.addPlayer(user);
             StringBuilder builder = new StringBuilder();
             for (Game.Player player : currentGame.players) {
                 builder.append(player.name + " " + player.isReady + " ");
             }
             server.sendMessageToClients(Code.JOIN, builder.toString());
+            redraw();
         });
 
         server.addListener(Code.PLAYER_READY, args -> {
             server.sendMessageToClients(Code.PLAYER_READY, args.message);
+        });
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                MainWindow.instance.disconnect();
+            }
         });
     }
 
