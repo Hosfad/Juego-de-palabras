@@ -4,8 +4,8 @@ import ScrableClient.DreamUI.UIColours;
 import ScrableClient.DreamUI.components.*;
 import ScrableClient.DreamUI.utils.ImageUtils;
 import ScrableClient.Game.Game;
-import ScrableClient.Interfaces.MainWindow;
 import ScrableServer.Client;
+import ScrableServer.Server;
 import ScrableServer.ServerUtils;
 import ScrableServer.Words.Word;
 
@@ -140,44 +140,6 @@ public class GameWindow extends DreamFrame {
 		new GameWindow(new Game("asd"), "").setVisible(true);
 	}
 
-	public void setNetworking() {
-		Client mainClient = MainWindow.instance.client;
-		Server server = MainWindow.instance.server;
-
-		// Client Logic
-		mainClient.addListener(Code.GAME_START, args -> {
-
-		});
-
-		mainClient.addListener(Code.WORD_SELECT, args -> {
-
-		});
-
-		mainClient.addListener(Code.INPUT_UPDATE, args -> {
-
-		});
-
-		mainClient.addListener(Code.WORD_GUESS, args -> {
-
-		});
-
-		// Server Logic
-		server.addListener(Code.GAME_START, args -> {
-
-		});
-
-		server.addListener(Code.WORD_SELECT, args -> {
-
-		});
-
-		server.addListener(Code.INPUT_UPDATE, args -> {
-
-		});
-
-		server.addListener(Code.WORD_GUESS, args -> {
-
-		});
-	}
 
 	public void onExit() {
 		MainWindow win = MainWindow.instance;
