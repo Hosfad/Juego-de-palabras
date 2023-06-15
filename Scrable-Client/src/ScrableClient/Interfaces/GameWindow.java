@@ -18,142 +18,172 @@ import java.util.concurrent.TimeUnit;
 
 public class GameWindow extends DreamFrame {
 
-    private DreamPanel body, content;
-    public String currentUserId;
-    public JLabel selectedLetter = new JLabel();
-    public JLabel difinition = new JLabel("Difinicion : ");
-    public Word selectedWord ;
-    private List playerList = new List();
-    long futureTimeMillis ;
+	private DreamPanel body, content;
+	public String currentUserId;
+	public JLabel selectedLetter = new JLabel();
+	public JLabel difinition = new JLabel("Difinicion : ");
+	public Word selectedWord;
+	private List playerList = new List();
+	long futureTimeMillis;
 
-    public JLabel remainingTime = new JLabel("Tiempo restante : 26:00");
+	public JLabel remainingTime = new JLabel("Tiempo restante : 26:00");
 
-    Thread timeThread = new Thread(()->{
-       while (true){
+	Thread timeThread = new Thread(() -> {
+		while (true) {
 
-          long remainingTimeMillis = futureTimeMillis - System.currentTimeMillis();
-           long remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingTimeMillis);
-           long remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingTimeMillis) % 60;
+			long remainingTimeMillis = futureTimeMillis - System.currentTimeMillis();
+			long remainingMinutes = TimeUnit.MILLISECONDS.toMinutes(remainingTimeMillis);
+			long remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(remainingTimeMillis) % 60;
 
-            String remain = String.format("%02d:%02d", remainingMinutes, remainingSeconds);
-            remainingTime.setText("Tiempo restante : " + remain);
-           try {
-               Thread.sleep(600);
-           } catch (InterruptedException e) {
-               throw new RuntimeException(e);
-           }
-       }
-    });
+			String remain = String.format("%02d:%02d", remainingMinutes, remainingSeconds);
+			remainingTime.setText("Tiempo restante : " + remain);
+			try {
+				Thread.sleep(600);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	});
 
+	// Calculate the remaining time in milliseconds
+	public GameWindow(Game game, String currentUserId) {
+		super("Juego de palabras", ImageUtils
+				.resize((BufferedImage) Objects
+						.requireNonNull(ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png")), 20, 20));
+		futureTimeMillis = game.startTime + TimeUnit.MINUTES.toMillis(26);
 
-    // Calculate the remaining time in milliseconds
-    public GameWindow(Game game, String currentUserId) {
-        super("Juego de palabras", ImageUtils
-                .resize((BufferedImage) Objects.requireNonNull(ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png")), 20, 20));
-        futureTimeMillis = game.startTime + TimeUnit.MINUTES.toMillis(26);
+		System.out.println("Construct " + game.startTime);
+		game.assignWords();
+		difinition.setForeground(Color.white);
+		difinition.setMaximumSize(new Dimension(300, 50));
+		difinition.setText("Difinicion : " + game.getPlayer(p -> p.name.equals(currentUserId)).getWord('a').definition);
 
-        System.out.println("Construct " +game.startTime);
-        game.assignWords();
-        difinition.setForeground(Color.white);
-        difinition.setMaximumSize(new Dimension(300, 50));
-        difinition.setText("Difinicion : " + game.getPlayer(p-> p.name.equals(currentUserId)).getWord('a').definition);
+		remainingTime.setForeground(Color.white);
 
-        remainingTime.setForeground(Color.white);
+		selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord('A');
+		body = new DreamPanel();
+		this.currentUserId = currentUserId;
+		setSize(500, 600);
+		setLocationRelativeTo(null);
+		add(body, BorderLayout.CENTER);
+		body.setBorder(new EmptyBorder(7, 8, 7, 8));
 
+		body.add(content = new DreamPanel(), BorderLayout.NORTH);
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        selectedWord = game.getPlayer(p-> p.name.equals(currentUserId)).getWord('A');
-        body = new DreamPanel();
-        this.currentUserId = currentUserId;
-        setSize(500, 600);
-        setLocationRelativeTo(null);
-        add(body, BorderLayout.CENTER);
-        body.setBorder(new EmptyBorder(7, 8, 7, 8));
+		DreamPanel buttonPanel = new DreamPanel();
+		buttonPanel.setLayout(new GridLayout(5, 5));
 
-        body.add(content = new DreamPanel(), BorderLayout.NORTH);
-        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		DreamButton[] buttons = new DreamButton[26];
 
-        DreamPanel buttonPanel = new DreamPanel();
-        buttonPanel.setLayout(new GridLayout(5, 5));
+		for (int i = 0; i < 26; i++) {
+			buttons[i] = new DreamButton(String.valueOf((char) (65 + i))); // Letters A to Z
+			buttons[i].addActionListener(e -> {
+				char selectedChar = ((DreamButton) e.getSource()).getText().charAt(0);
+				selectedLetter.setText("Letra selecionada : " + selectedChar);
+				selectedWord = game.getPlayer(p -> p.name.equals(currentUserId)).getWord(selectedChar);
+				difinition.setText("Difinicion : " + selectedWord.definition);
 
-        DreamButton[] buttons = new DreamButton[26];
+			});
+			buttonPanel.add(buttons[i]);
+		}
+		content.add(buttonPanel);
 
-        for (int i = 0; i < 26; i++) {
-            buttons[i] = new DreamButton(String.valueOf((char) (65 + i))); // Letters A to Z
-            buttons[i].addActionListener(e -> {
-                char selectedChar = ((DreamButton) e.getSource()).getText().charAt(0);
-                selectedLetter.setText("Letra selecionada : " + selectedChar);
-                selectedWord = game.getPlayer(p-> p.name.equals(currentUserId)).getWord(selectedChar);
-                difinition.setText("Difinicion : " + selectedWord.definition);
+		content.add(new DreamLabel("⠀"));
+		content.add(remainingTime);
+		content.add(new DreamLabel("⠀"));
+		content.add(new DreamLabel("Elige la palabra correspondiente"));
+		content.add(new DreamLabel("⠀"));
+		content.add(difinition);
 
-            });
-            buttonPanel.add(buttons[i]);
-        }
-        content.add(buttonPanel);
+		DreamPanel currentWordPanel = new DreamPanel();
+		currentWordPanel.setBackground(UIColours.BODY_COLOUR);
 
-        content.add(new DreamLabel("⠀"));
-        content.add(remainingTime);
-        content.add(new DreamLabel("⠀"));
-        content.add(new DreamLabel("Elige la palabra correspondiente"));
-        content.add(new DreamLabel("⠀"));
-        content.add(difinition);
+		currentWordPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
+		selectedLetter.setText("Palabra actual: A");
+		selectedLetter.setForeground(Color.white);
+		currentWordPanel.add(selectedLetter);
 
-        DreamPanel currentWordPanel = new DreamPanel();
-        currentWordPanel.setBackground(UIColours.BODY_COLOUR);
+		DreamHintTextField userSelectedWord = new DreamHintTextField("");
+		userSelectedWord.setPreferredSize(new Dimension(200, 30)); // Increase the width to 200
 
-        currentWordPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		currentWordPanel.add(userSelectedWord);
 
+		content.add(currentWordPanel);
+		content.add(new DreamLabel("⠀"));
+		content.add(new DreamLabel("⠀"));
 
-        selectedLetter.setText("Palabra actual: A");
-        selectedLetter.setForeground(Color.white);
-        currentWordPanel.add(selectedLetter);
+		DreamButton submitWord = new DreamButton("Enviar palabra");
+		submitWord.addActionListener(e -> {
+			// Enviar respuesta al servedor
+			String word = selectedWord.name;
+			String selectedWord = userSelectedWord.getText();
+			MainWindow.instance.client.sendMessageToServer(ServerUtils.Code.WORD_GUESS, currentUserId, word,
+					selectedWord);
+		});
 
-        DreamHintTextField userSelectedWord = new DreamHintTextField("");
-        userSelectedWord.setPreferredSize(new Dimension(200, 30)); // Increase the width to 200
+		content.add(submitWord);
+		content.add(new DreamLabel("⠀"));
+		content.add(new DreamLabel("⠀"));
+		content.add(new DreamLabel("⠀"));
 
-        currentWordPanel.add(userSelectedWord);
+		playerList.setForeground(Color.white);
+		playerList.setBackground(UIColours.BODY_COLOUR);
 
-        content.add(currentWordPanel);
-        content.add(new DreamLabel("⠀"));
-        content.add(new DreamLabel("⠀"));
+		DreamScrollPane dsp = new DreamScrollPane(playerList);
+		content.add(dsp, BorderLayout.SOUTH);
+		timeThread.start();
+	}
 
+	public static void main(String[] args) {
+		new GameWindow(new Game("asd"), "").setVisible(true);
+	}
 
-        DreamButton submitWord = new DreamButton("Enviar palabra");
-          submitWord.addActionListener(e -> {
-              // Enviar respuesta al servedor
-                String word = selectedWord.name;
-                String selectedWord = userSelectedWord.getText();
-                MainWindow.instance.client.sendMessageToServer(ServerUtils.Code.WORD_GUESS ,currentUserId , word , selectedWord);
-            });
+	public void setNetworking() {
+		Client mainClient = MainWindow.instance.client;
+		Server server = MainWindow.instance.server;
 
+		// Client Logic
+		mainClient.addListener(Code.GAME_START, args -> {
 
+		});
 
+		mainClient.addListener(Code.WORD_SELECT, args -> {
 
+		});
 
-        content.add(submitWord);
-        content.add(new DreamLabel("⠀"));
-        content.add(new DreamLabel("⠀"));
-        content.add(new DreamLabel("⠀"));
+		mainClient.addListener(Code.INPUT_UPDATE, args -> {
 
+		});
 
-        playerList.setForeground(Color.white);
-        playerList.setBackground(UIColours.BODY_COLOUR);
+		mainClient.addListener(Code.WORD_GUESS, args -> {
 
+		});
 
-        DreamScrollPane dsp = new DreamScrollPane(playerList);
-        content.add(dsp,BorderLayout.SOUTH);
-        timeThread.start();
-    }
+		// Server Logic
+		server.addListener(Code.GAME_START, args -> {
 
-    public static void main(String[] args) {
-        new GameWindow(new Game("asd"), "").setVisible(true);
-    }
+		});
 
-    public void onExit() {
-        MainWindow win = MainWindow.instance;
-        win.disconnect();
-        win.setVisible(true);
-        setVisible(false);
-        dispose();
-    }
+		server.addListener(Code.WORD_SELECT, args -> {
+
+		});
+
+		server.addListener(Code.INPUT_UPDATE, args -> {
+
+		});
+
+		server.addListener(Code.WORD_GUESS, args -> {
+
+		});
+	}
+
+	public void onExit() {
+		MainWindow win = MainWindow.instance;
+		win.disconnect();
+		win.setVisible(true);
+		setVisible(false);
+		dispose();
+	}
 }

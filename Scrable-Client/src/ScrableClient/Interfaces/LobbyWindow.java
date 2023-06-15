@@ -22,22 +22,22 @@ import java.io.IOException;
 public class LobbyWindow extends DreamFrame {
 
     public String currentUser;
+    public Game currentGame;
     private DreamPanel body, content;
-    private Game currentGame;
 
     private DreamLabel connectedUsersNum = new DreamLabel("0");
     private List playerList = new List();
 
     public LobbyWindow(Game game, String currentUser) {
         super("Sala de espera", ImageUtils
-                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"), 20, 20));
+                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://mir-s3-cdn-cf.behance.net/projects/404/bbf0ae95440691.Y3JvcCwxMTUwLDkwMCwyMjUsMA.jpg"), 20, 20));
         this.currentGame = game;
         this.currentUser = currentUser;
 
         Client mainClient = MainWindow.instance.client;
 
         body = new DreamPanel();
-        setSize(500, 600);
+        setSize(750, 600);
         setLocationRelativeTo(null);
         add(body, BorderLayout.CENTER);
         body.setBorder(new EmptyBorder(7, 8, 7, 8));
@@ -47,7 +47,7 @@ public class LobbyWindow extends DreamFrame {
         grid.setVgap(15);
 
         content.setLayout(grid);
-        content.add(new DreamLabel("Game id: "));
+        content.add(new DreamLabel("Id del juego: "));
 
         DreamTextField f = new DreamTextField();
         f.setText(game.id + "");
@@ -58,7 +58,7 @@ public class LobbyWindow extends DreamFrame {
         idPanel.setLayout(new FlowLayout());
         idPanel.add(f);
 
-        DreamButton copyButton = new DreamButton("Copy");
+        DreamButton copyButton = new DreamButton("Copiar");
         idPanel.add(copyButton);
 
         copyButton.addActionListener(e -> Toolkit.getDefaultToolkit().getSystemClipboard()
@@ -66,14 +66,14 @@ public class LobbyWindow extends DreamFrame {
         idPanel.setBackground(UIColours.BODY_COLOUR);
 
         content.add(idPanel);
-        content.add(new DreamLabel("Status: "));
-        content.add(new DreamLabel(currentGame.gameState.name()));
-        content.add(new DreamLabel("Connected users: "));
+        content.add(new DreamLabel("Estado: "));
+        content.add(new DreamLabel(currentGame.gameState.name));
+        content.add(new DreamLabel("Jugadores conectados: "));
         connectedUsersNum.setText(currentGame.players.size() + "");
         content.add(connectedUsersNum);
 
-        createButton("Ready", "start.png", e -> mainClient.sendMessageToServer(Code.PLAYER_READY, currentUser));
-        createButton("Leave Game", "stop.png", e -> onExit());
+        createButton("Listo", "start.png", e -> mainClient.sendMessageToServer(Code.PLAYER_READY, currentUser));
+        createButton("Salir de la sala", "stop.png", e -> onExit());
 
         playerList.setForeground(Color.white);
         playerList.setBackground(UIColours.BODY_COLOUR);
@@ -87,11 +87,6 @@ public class LobbyWindow extends DreamFrame {
 
         // Network Logic
         redraw();
-
-        mainClient.addListener(Code.CONNECT, (args) -> {
-            currentGame.addPlayer(args.data[0]);
-            redraw();
-        });
 
         mainClient.addListener(Code.DISCONNECT, (args) -> {
             currentGame.removePlayer(args.data[0]);
@@ -118,7 +113,6 @@ public class LobbyWindow extends DreamFrame {
             setVisible(false);
             dispose();
             currentGame.startTime = Long.parseLong(args.data[0]);
-            System.out.println("Start time: " + currentGame.startTime);
             GameWindow gameWindow = new GameWindow(currentGame, currentUser);
             gameWindow.setVisible(true);
         });
@@ -129,15 +123,33 @@ public class LobbyWindow extends DreamFrame {
         if (server == null)
             return;
         server.addListener(Code.JOIN, (args) -> {
+            String user = args.data[0];
+            if (currentGame.gameState == Game.State.IN_PROGRESS) {
+                server.sendMessageToClients(Code.JOIN, "game_in_progress");
+                return;
+            } else if (currentGame.hasPlayer(user)) {
+                server.sendMessageToClients(Code.JOIN, "name_taken");
+                return;
+            }
+
+            currentGame.addPlayer(user);
             StringBuilder builder = new StringBuilder();
             for (Game.Player player : currentGame.players) {
                 builder.append(player.name + " " + player.isReady + " ");
             }
             server.sendMessageToClients(Code.JOIN, builder.toString());
+            redraw();
         });
 
         server.addListener(Code.PLAYER_READY, args -> {
             server.sendMessageToClients(Code.PLAYER_READY, args.message);
+        });
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                MainWindow.instance.disconnect();
+            }
         });
     }
 

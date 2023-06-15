@@ -70,7 +70,7 @@ public class DreamFrame extends JFrame {
             this.title = title;
             this.img = img;
             if (this.img != null) {
-                this.img = ImageUtils.resize(img, 20, 20);
+                this.img = ImageUtils.resize(img, 40, 40);
                 left.add(logoContainer = new DreamLabel());
                 logoContainer.setIcon(new ImageIcon(this.img));
             }
