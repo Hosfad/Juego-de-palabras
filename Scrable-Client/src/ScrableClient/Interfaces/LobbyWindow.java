@@ -30,14 +30,14 @@ public class LobbyWindow extends DreamFrame {
 
     public LobbyWindow(Game game, String currentUser) {
         super("Sala de espera", ImageUtils
-                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"), 20, 20));
+                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://mir-s3-cdn-cf.behance.net/projects/404/bbf0ae95440691.Y3JvcCwxMTUwLDkwMCwyMjUsMA.jpg"), 20, 20));
         this.currentGame = game;
         this.currentUser = currentUser;
 
         Client mainClient = MainWindow.instance.client;
 
         body = new DreamPanel();
-        setSize(500, 600);
+        setSize(750, 600);
         setLocationRelativeTo(null);
         add(body, BorderLayout.CENTER);
         body.setBorder(new EmptyBorder(7, 8, 7, 8));
@@ -47,7 +47,7 @@ public class LobbyWindow extends DreamFrame {
         grid.setVgap(15);
 
         content.setLayout(grid);
-        content.add(new DreamLabel("Game id: "));
+        content.add(new DreamLabel("Id del juego: "));
 
         DreamTextField f = new DreamTextField();
         f.setText(game.id + "");
@@ -58,7 +58,7 @@ public class LobbyWindow extends DreamFrame {
         idPanel.setLayout(new FlowLayout());
         idPanel.add(f);
 
-        DreamButton copyButton = new DreamButton("Copy");
+        DreamButton copyButton = new DreamButton("Copiar");
         idPanel.add(copyButton);
 
         copyButton.addActionListener(e -> Toolkit.getDefaultToolkit().getSystemClipboard()
@@ -66,14 +66,14 @@ public class LobbyWindow extends DreamFrame {
         idPanel.setBackground(UIColours.BODY_COLOUR);
 
         content.add(idPanel);
-        content.add(new DreamLabel("Status: "));
-        content.add(new DreamLabel(currentGame.gameState.name()));
-        content.add(new DreamLabel("Connected users: "));
+        content.add(new DreamLabel("Estado: "));
+        content.add(new DreamLabel(currentGame.gameState.name));
+        content.add(new DreamLabel("Jugadores conectados: "));
         connectedUsersNum.setText(currentGame.players.size() + "");
         content.add(connectedUsersNum);
 
-        createButton("Ready", "start.png", e -> mainClient.sendMessageToServer(Code.PLAYER_READY, currentUser));
-        createButton("Leave Game", "stop.png", e -> onExit());
+        createButton("Listo", "start.png", e -> mainClient.sendMessageToServer(Code.PLAYER_READY, currentUser));
+        createButton("Salir de la sala", "stop.png", e -> onExit());
 
         playerList.setForeground(Color.white);
         playerList.setBackground(UIColours.BODY_COLOUR);
