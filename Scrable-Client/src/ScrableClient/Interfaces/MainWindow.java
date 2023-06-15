@@ -21,14 +21,14 @@ public class MainWindow extends DreamFrame {
 
     public MainWindow() {
         super("Juego de palabras", ImageUtils
-                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://i.imgur.com/Ir30QMW.png"), 20, 20));
+                .resize((BufferedImage) ImageUtils.getImageFromUrl("https://mir-s3-cdn-cf.behance.net/projects/404/bbf0ae95440691.Y3JvcCwxMTUwLDkwMCwyMjUsMA.jpg"), 20, 20));
 
         if (instance == null)
             instance = this;
         else
             throw new RuntimeException("Only one instance of MainWindow is allowed");
 
-        setSize(500, 600);
+        setSize(750, 600);
         setLocationRelativeTo(null);
 
         body = new DreamPanel();
@@ -41,11 +41,11 @@ public class MainWindow extends DreamFrame {
 
         content.setLayout(grid);
 
-        createButton("Create Game", _e -> {
-            String username = JOptionPane.showInputDialog(getParent(), "Username");
+        createButton("Crear Sala", _e -> {
+            String username = JOptionPane.showInputDialog(getParent(), "Nombre de usuario");
             if (username == null)
                 return;
-            
+
             int port = (int)(Math.random() * 65535);
             server = new Server(port).runAsync();
             client = new Client(username, "localhost", port).connect();
@@ -59,9 +59,9 @@ public class MainWindow extends DreamFrame {
             lobbyWindow.setVisible(true);
         });
 
-        createButton("Join Game", _e -> {
+        createButton("Unirse a una sala", _e -> {
             JTextField gameIdField = new JTextField(), usernameField = new JTextField();
-            Object[] message = { "Game id :", gameIdField, "Username :", usernameField };
+            Object[] message = { "Id de la sala :", gameIdField, "Nombre de usuario :", usernameField };
 
             int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
             String gameIdText = gameIdField.getText(), usernameText = usernameField.getText();
@@ -70,7 +70,7 @@ public class MainWindow extends DreamFrame {
                 return;
 
             if (gameIdText.isEmpty() || usernameText.isEmpty()) {
-                showDialog("Please fill all the fields");
+                showDialog("Porfavor, rellena todos los huecos");
                 return;
             }
 
@@ -79,7 +79,7 @@ public class MainWindow extends DreamFrame {
             client = new Client(usernameText, serverIp[0], Integer.parseInt(serverIp[1])).connect();
 
             client.addListener(Code.JOIN, args -> {
-                System.out.println("JOIN: " + args.message);
+                System.out.println("UNIRSE: " + args.message);
                 Game game = new Game(gameIdText);
                 for (int i = 0, j = 0; i < args.data.length - 1; i += 2, j++) {
                     game.addPlayer(args.data[i]);
@@ -97,7 +97,7 @@ public class MainWindow extends DreamFrame {
             // TODO: add logic name_taken
         });
 
-        createButton("Exit", _e -> {
+        createButton("Salir", _e -> {
             disconnect();
             System.exit(0);
         });

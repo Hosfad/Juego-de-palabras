@@ -97,9 +97,14 @@ public class Game {
     }
 
     public enum State {
-        WAITING_FOR_PLAYERS,
-        IN_PROGRESS,
-        FINISHED
+        WAITING_FOR_PLAYERS("Esperando jugadores"),
+        IN_PROGRESS("En progreso"),
+        FINISHED("Terminado");
+        public String name;
+        
+        State(String name){
+            this.name = name;
+        }
     }
 
     @Override
