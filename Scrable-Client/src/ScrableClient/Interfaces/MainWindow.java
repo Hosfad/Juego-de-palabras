@@ -54,7 +54,7 @@ public class MainWindow extends DreamFrame {
             try {
                 client = new Client(username, new InetSocketAddress("localhost", port)).sendConnect();
             } catch (IOException e) {
-                showDialog("Couldn't connect to server");
+                showDialog("No se pudo conectar al servidor");
                 return;
             }
 
@@ -79,7 +79,7 @@ public class MainWindow extends DreamFrame {
             JTextField gameIdField = new JTextField(), usernameField = new JTextField();
             Object[] message = { "Id de la sala :", gameIdField, "Nombre de usuario :", usernameField };
 
-            int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(null, message, "Inicio de sesión", JOptionPane.OK_CANCEL_OPTION);
             String gameIdText = gameIdField.getText(), usernameText = usernameField.getText();
 
             if (option != JOptionPane.OK_OPTION)
@@ -93,13 +93,13 @@ public class MainWindow extends DreamFrame {
             String[] serverIp = gameIdText.split(":");
 
             if (serverIp.length != 2) {
-                showDialog("Invalid game id");
+                showDialog("Id de juego invalido");
                 return;
             } else if (!serverIp[1].matches("\\d+")) {
-                showDialog("Invalid port");
+                showDialog("Puerto invalido");
                 return;
             } else if (Integer.parseInt(serverIp[1]) > 65535) {
-                showDialog("Port out of range");
+                showDialog("Puerto fuera de rango");
                 return;
             }
 
@@ -107,7 +107,7 @@ public class MainWindow extends DreamFrame {
                 client = new Client(usernameText, new InetSocketAddress(serverIp[0], Integer.parseInt(serverIp[1])))
                         .sendConnect();
             } catch (NumberFormatException | IOException e) {
-                showDialog("Invalid game id");
+                showDialog("Id de juego invalido");
                 return;
             }
 
@@ -120,10 +120,10 @@ public class MainWindow extends DreamFrame {
                 }
 
                 if (args.message.equals("game_in_progress")) {
-                    showDialog("Game in progress");
+                    showDialog("Partida en progreso");
                     return;
                 } else if (args.message.equals("name_taken")) {
-                    showDialog("Name already taken");
+                    showDialog("El nombre ya está en uso");
                     return;
                 }
 
