@@ -3,7 +3,6 @@ package ScrableServer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,10 +18,6 @@ public class Server implements Runnable {
     private List<ClientHandler> clientHandlers = new ArrayList<>();
 
     private HashMap<Code, Collection<ClientEventListener>> eventListeners = new HashMap<>();
-
-    public static void main(String[] args) {
-        new Server(6969).run();
-    }
 
     public Server(int port) {
         try {
@@ -64,7 +59,7 @@ public class Server implements Runnable {
                 break;
             case DISCONNECT:
                 clientHandler.disconnect();
-                clientHandlers.remove(clientHandler);
+                clientHandlers.removeIf(handler -> handler == clientHandler);
                 sendMessageToClients(CODE, clientHandler.name);
                 break;
             case MESSAGE:
