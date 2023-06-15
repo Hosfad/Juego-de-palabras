@@ -49,11 +49,7 @@ public class MainWindow extends DreamFrame {
             if (username == null)
                 return;
 
-<<<<<<< HEAD
             int port = (int)(Math.random() * 65535);
-=======
-            int port = (int) (Math.random() * 65535);
->>>>>>> network-errors-handling
             server = new Server(port).runAsync();
             try {
                 client = new Client(username, new InetSocketAddress("localhost", port)).sendConnect();

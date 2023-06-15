@@ -59,6 +59,10 @@ public class GameWindow extends DreamFrame {
 		Server server = MainWindow.instance.server;
 
 		// Client Logic
+		mainClient.addListener(Code.GAME_START, args -> {
+
+		});
+
 		mainClient.addListener(Code.WORD_SELECT, args -> {
 
 		});
@@ -72,6 +76,10 @@ public class GameWindow extends DreamFrame {
 		});
 
 		// Server Logic
+		server.addListener(Code.GAME_START, args -> {
+
+		});
+
 		server.addListener(Code.WORD_SELECT, args -> {
 
 		});
