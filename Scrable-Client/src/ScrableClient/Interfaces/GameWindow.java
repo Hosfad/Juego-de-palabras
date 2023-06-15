@@ -12,6 +12,8 @@ import ScrableServer.Words.Word;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.Objects;
@@ -153,6 +155,14 @@ public class GameWindow extends DreamFrame {
 						endGame();
 					}
 					break;
+				}
+			}
+		});
+		userSelectedWord.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					submitWord.doClick();
 				}
 			}
 		});
